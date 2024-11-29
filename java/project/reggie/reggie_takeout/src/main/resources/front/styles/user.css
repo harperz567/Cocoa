@@ -163,12 +163,12 @@
   color: #333333;
 }
 
-#user .divOrders .dishList {
+#user .divOrders .petList {
   padding-top: 10rem;
   padding-bottom: 11rem;
 }
 
-#user .divOrders .dishList .item {
+#user .divOrders .petList .item {
   padding-top: 5rem;
   padding-bottom: 5rem;
   display: flex;

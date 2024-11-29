@@ -35,8 +35,8 @@
     },
     {
       "icon_id": "21641547",
-      "name": "combo",
-      "font_class": "combo",
+      "name": "pair",
+      "font_class": "pair",
       "unicode": "e60a",
       "unicode_decimal": 58890
     },
@@ -49,8 +49,8 @@
     },
     {
       "icon_id": "21641611",
-      "name": "food",
-      "font_class": "food",
+      "name": "pet",
+      "font_class": "pet",
       "unicode": "e60c",
       "unicode_decimal": 58892
     }

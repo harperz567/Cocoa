@@ -6,8 +6,12 @@
 }
 
 #main .divHead {
-  background: url(../images/mainBg.png);
+  background: url(../images/bg_ugly.png);
+  /**
+
   background-repeat: no-repeat;
+  */
+
   height: 152rem;
   background-size: contain;
 }
@@ -231,7 +235,7 @@
   bottom: 0;
 }
 
-#main .divBody .divMenu .divItem .divNum .divDishNum {
+#main .divBody .divMenu .divItem .divNum .divPetNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
@@ -379,13 +383,13 @@
   height: 100%;
 }
 
-#main .dialogFlavor {
+#main .dialogDetail {
   opacity: 1;
   background: #ffffff;
   border-radius: 10rem;
 }
 
-#main .dialogFlavor .dialogTitle {
+#main .dialogDetail .dialogTitle {
   margin-top: 26rem;
   margin-bottom: 14rem;
   font-size: 18rem;
@@ -396,12 +400,12 @@
   text-align: center;
 }
 
-#main .dialogFlavor .divContent {
+#main .dialogDetail .divContent {
   margin-left: 15rem;
   margin-right: 15rem;
 }
 
-#main .dialogFlavor .divContent .divFlavorTitle {
+#main .dialogDetail .divContent .divDetailTitle {
   height: 20rem;
   opacity: 1;
   font-size: 14rem;
@@ -416,7 +420,7 @@
   margin-top: 10rem;
 }
 
-#main .dialogFlavor .divContent span {
+#main .dialogDetail .divContent span {
   display: inline-block;
   height: 30rem;
   opacity: 1;
@@ -434,12 +438,12 @@
   color: #333333;
 }
 
-#main .dialogFlavor .divContent .spanActive {
+#main .dialogDetail .divContent .spanActive {
   background: #ffc200;
   font-weight: 500;
 }
 
-#main .dialogFlavor .divBottom {
+#main .dialogDetail .divBottom {
   margin-top: 20rem;
   margin-bottom: 19rem;
   margin-left: 20rem;
@@ -447,7 +451,7 @@
   position: relative;
 }
 
-#main .dialogFlavor .divBottom div:first-child {
+#main .dialogDetail .divBottom div:first-child {
   height: 30rem;
   opacity: 1;
   font-size: 20rem;
@@ -459,11 +463,11 @@
   letter-spacing: 0;
 }
 
-#main .dialogFlavor .divBottom div span {
+#main .dialogDetail .divBottom div span {
   font-size: 14rem;
 }
 
-#main .dialogFlavor .divBottom div:last-child {
+#main .dialogDetail .divBottom div:last-child {
   width: 100rem;
   height: 30rem;
   opacity: 1;
@@ -480,14 +484,14 @@
   color: #333333;
 }
 
-#main .dialogFlavor .divFlavorClose {
+#main .dialogDetail .divDetailClose {
   position: absolute;
   bottom: -70rem;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-#main .dialogFlavor .divFlavorClose img {
+#main .dialogDetail .divDetailClose img {
   width: 44rem;
   height: 44rem;
 }
@@ -688,7 +692,7 @@
   display: flex;
 }
 
-#main .detailsDialog .divNum .divDishNum {
+#main .detailsDialog .divNum .divPetNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
@@ -736,30 +740,30 @@
   height: 44rem;
 }
 
-#main .setMealDetailsDialog {
+#main .setPairDetailsDialog {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-#main .setMealDetailsDialog .divContainer {
+#main .setPairDetailsDialog .divContainer {
   padding: 20rem 20rem 0 20rem;
   overflow: auto;
   max-height: 50vh;
   overflow-y: auto;
 }
 
-#main .setMealDetailsDialog .el-image {
+#main .setPairDetailsDialog .el-image {
   width: 100%;
   height: 100%;
 }
 
-#main .setMealDetailsDialog .el-image img {
+#main .setPairDetailsDialog .el-image img {
   width: 100%;
   height: 100%;
 }
 
-#main .setMealDetailsDialog .divSubTitle {
+#main .setPairDetailsDialog .divSubTitle {
   text-align: left;
   margin-top: 16rem;
   margin-bottom: 6rem;
@@ -775,7 +779,7 @@
   position: relative;
 }
 
-#main .setMealDetailsDialog .divContainer .item .divSubTitle .divPrice {
+#main .setPairDetailsDialog .divContainer .item .divSubTitle .divPrice {
   position: absolute;
   right: 0;
   top: 0;
@@ -789,7 +793,7 @@
 }
 
 #main
-  .setMealDetailsDialog
+  .setPairDetailsDialog
   .divContainer
   .item
   .divSubTitle
@@ -798,7 +802,7 @@
   font-size: 12rem;
 }
 
-#main .setMealDetailsDialog .title {
+#main .setPairDetailsDialog .title {
   height: 28rem;
   opacity: 1;
   font-size: 20rem;
@@ -811,7 +815,7 @@
   margin-bottom: 11rem;
 }
 
-#main .setMealDetailsDialog .content {
+#main .setPairDetailsDialog .content {
   opacity: 1;
   font-size: 14rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -821,7 +825,7 @@
   line-height: 24rem;
 }
 
-#main .setMealDetailsDialog .divNum {
+#main .setPairDetailsDialog .divNum {
   display: flex;
   justify-content: space-between;
   margin-top: 23rem;
@@ -830,7 +834,7 @@
   padding-right: 20rem;
 }
 
-#main .setMealDetailsDialog .divNum .left {
+#main .setPairDetailsDialog .divNum .left {
   font-size: 20rem;
   font-family: DIN, DIN-Medium;
   font-weight: 500;
@@ -840,15 +844,15 @@
   letter-spacing: 0rem;
 }
 
-#main .setMealDetailsDialog .divNum .left span:first-child {
+#main .setPairDetailsDialog .divNum .left span:first-child {
   font-size: 12rem;
 }
 
-#main .setMealDetailsDialog .divNum .right {
+#main .setPairDetailsDialog .divNum .right {
   display: flex;
 }
 
-#main .setMealDetailsDialog .divNum .divDishNum {
+#main .setPairDetailsDialog .divNum .divPetNum {
   font-size: 15rem;
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 500;
@@ -859,7 +863,7 @@
   width: auto;
 }
 
-#main .setMealDetailsDialog .divNum .divTypes {
+#main .setPairDetailsDialog .divNum .divTypes {
   width: 64rem;
   height: 24rem;
   opacity: 1;
@@ -874,17 +878,17 @@
   letter-spacing: 0;
 }
 
-#main .setMealDetailsDialog .divNum .divSubtract,
+#main .setPairDetailsDialog .divNum .divSubtract,
 .divAdd {
   height: 36rem;
 }
 
-#main .setMealDetailsDialog .divNum img {
+#main .setPairDetailsDialog .divNum img {
   width: 36rem;
   height: 36rem;
 }
 
-#main .setMealDetailsDialog .divNum .right .addCart {
+#main .setPairDetailsDialog .divNum .right .addCart {
   width: 100rem;
   height: 30rem;
   opacity: 1;
@@ -898,14 +902,14 @@
   line-height: 30rem;
 }
 
-#main .setMealDetailsDialog .detailsDialogClose {
+#main .setPairDetailsDialog .detailsDialogClose {
   position: absolute;
   bottom: -70rem;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-#main .setMealDetailsDialog .detailsDialogClose img {
+#main .setPairDetailsDialog .detailsDialogClose img {
   width: 44rem;
   height: 44rem;
 }

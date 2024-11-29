@@ -65,12 +65,12 @@
   color: #333333;
 }
 
-#order .divBody .item .dishList {
+#order .divBody .item .petList {
   padding-top: 10rem;
   padding-bottom: 11rem;
 }
 
-#order .divBody .item .dishList .item {
+#order .divBody .item .petList .item {
   padding-top: 5rem;
   padding-bottom: 5rem;
   display: flex;

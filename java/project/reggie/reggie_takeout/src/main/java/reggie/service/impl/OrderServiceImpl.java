@@ -75,9 +75,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implement
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderId(orderId);
             orderDetail.setNumber(item.getNumber());
-            orderDetail.setDishFlavor(item.getDishFlavor());
-            orderDetail.setDishId(item.getDishId());
-            orderDetail.setSetmealId(item.getSetmealId());
+            orderDetail.setPetDetail(item.getPetDetail());
+            orderDetail.setPetId(item.getPetId());
+            orderDetail.setBondpairId(item.getBondpairId());
             orderDetail.setName(item.getName());
             orderDetail.setImage(item.getImage());
             orderDetail.setAmount(item.getAmount());

@@ -81,6 +81,7 @@ public class CategoryController {
     @PutMapping
     public R<String> update(@RequestBody Category category){
         log.info("Updated info: {}", category);
+        categoryService.updateById(category);
         return R.success("Updated successfully!");
     }
 

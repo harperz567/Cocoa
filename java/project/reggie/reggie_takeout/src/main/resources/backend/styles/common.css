@@ -284,13 +284,13 @@ input[type="number"] {
 .el-icon-chicken:before {
   content: "\e6c3";
 }
-.el-icon-food:before {
+.el-icon-pet:before {
   content: "\e6c4";
 }
-.el-icon-dish-1:before {
+.el-icon-pet-1:before {
   content: "\e6c5";
 }
-.el-icon-dish:before {
+.el-icon-pet:before {
   content: "\e6c6";
 }
 .el-icon-moon-night:before {

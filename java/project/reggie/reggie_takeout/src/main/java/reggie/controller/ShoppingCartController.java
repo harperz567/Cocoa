@@ -37,19 +37,19 @@ public class ShoppingCartController {
         shoppingCart.setUserId(currentId);
 
         // Check if this animal is already in shopping cart
-        Long dishId = shoppingCart.getDishId();
+        Long petId = shoppingCart.getPetId();
         LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ShoppingCart::getUserId, currentId);
 
-        if (dishId != null){
+        if (petId != null){
             // The item in the cart is an animal
-            queryWrapper.eq(ShoppingCart::getDishId, dishId);
+            queryWrapper.eq(ShoppingCart::getPetId, petId);
         }else{
             // The item in the cart is an animal family
-            queryWrapper.eq(ShoppingCart::getSetmealId, shoppingCart.getSetmealId());
+            queryWrapper.eq(ShoppingCart::getBondpairId, shoppingCart.getBondpairId());
         }
         // Check if this animal is already in shopping cart
-        // SQL: Select * from shopping-cart where user-id = ? and dish/setmeal-id = ?
+        // SQL: Select * from shopping-cart where user-id = ? and pet/bondpair-id = ?
         ShoppingCart cartServiceOne = shoppingCartService.getOne(queryWrapper);
 
         if (cartServiceOne != null){

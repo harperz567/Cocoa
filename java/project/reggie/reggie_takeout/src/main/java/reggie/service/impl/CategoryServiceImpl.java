@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reggie.entity.Category;
-import reggie.entity.Dish;
-import reggie.entity.Setmeal;
+import reggie.entity.Pet;
+import reggie.entity.Bondpair;
 import reggie.mapper.CategoryMapper;
 import reggie.service.CategoryService;
-import reggie.service.DishService;
-import reggie.service.SetmealService;
+import reggie.service.PetService;
+import reggie.service.BondpairService;
 import reggie.common.CustomException;
 
 @Service
@@ -18,9 +18,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     CategoryService {
 
     @Autowired
-    private SetmealService setmealService;
+    private BondpairService bondpairService;
     @Autowired
-    private DishService dishService;
+    private PetService petService;
     /**
      * Delete category by id
      * @param id
@@ -28,21 +28,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public void remove(Long id){
         // check by id
-        LambdaQueryWrapper<Dish> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dishLambdaQueryWrapper.eq(Dish::getCategoryId, id);
-        int countDish = (int) dishService.count(dishLambdaQueryWrapper);
+        LambdaQueryWrapper<Pet> petLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        petLambdaQueryWrapper.eq(Pet::getCategoryId, id);
+        int countPet = (int) petService.count(petLambdaQueryWrapper);
 
-        // Check if there is any dishes under this category
-        if (countDish > 0){
-            // Dish under this category, throw error
+        // Check if there is any petes under this category
+        if (countPet > 0){
+            // Pet under this category, throw error
             throw new CustomException("There are animals under this category, can not delete");
         }
-        // Check if there is any meal under this category
-        LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        setmealLambdaQueryWrapper.eq(Setmeal::getCategoryId, id);
-        int countMeal = (int) setmealService.count(setmealLambdaQueryWrapper);
-        if (countMeal > 0){
-            // Meal under this category, throw error
+        // Check if there is any pair under this category
+        LambdaQueryWrapper<Bondpair> bondpairLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        bondpairLambdaQueryWrapper.eq(Bondpair::getCategoryId, id);
+        int countPair = (int) bondpairService.count(bondpairLambdaQueryWrapper);
+        if (countPair > 0){
+            // Pair under this category, throw error
             throw new CustomException("There are animal families under this category, can not delete");
         }
 

@@ -7,18 +7,18 @@ function categoryListApi() {
   }
 
 //获取菜品分类对应的菜品
-function dishListApi(data) {
+function petListApi(data) {
     return $axios({
-        'url': '/dish/list',
+        'url': '/pet/list',
         'method': 'get',
         params:{...data}
     })
 }
 
 //获取菜品分类对应的套餐
-function setmealListApi(data) {
+function bondpairListApi(data) {
     return $axios({
-        'url': '/setmeal/list',
+        'url': '/bondpair/list',
         'method': 'get',
         params:{...data}
     })
@@ -61,9 +61,9 @@ function clearCartApi() {
 }
 
 //获取套餐的全部菜品
-function setMealDishDetailsApi(id) {
+function setPairPetDetailsApi(id) {
     return $axios({
-        'url': `/setmeal/dish/${id}`,
+        'url': `/bondpair/pet/${id}`,
         'method': 'get',
     })
 }

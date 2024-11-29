@@ -24,15 +24,15 @@ public class OrderDetail implements Serializable {
 
 
     //菜品id
-    private Long dishId;
+    private Long petId;
 
 
     //套餐id
-    private Long setmealId;
+    private Long bondpairId;
 
 
     //口味
-    private String dishFlavor;
+    private String petDetail;
 
 
     //数量
