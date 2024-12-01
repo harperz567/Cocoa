@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocoa Animal Shelter Management System</title>
+  <link rel="shortcut icon" href="favicon.ico">
+  <!-- 引入 Bootstrap 样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="styles/common.css" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="styles/icon/iconfont.css" />
+  <style>
+    .body {
+      min-width: 1366px;
+    }
+    .app-main {
+      height: calc(100% - 64px);
+    }
+    .app-main .divTmp {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app" id="app">
+
+  <div v-if="loading" class="d-flex justify-content-center align-items-center" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="app-wrapper openSidebar clearfix d-flex">
+    <!-- sidebar -->
+    <div class="sidebar-container custom-teal p-3">
+      <div class="logo" style="width: 250px; margin: 0 auto;">
+        <img src="images/login/main_logo_alpha.png" class="img-fluid" alt="..." style="width: 100%;">
+      </div>
+
+
+      <!-- Navbar inside sidebar -->
+      <div class="menu-list">
+        <ul class="nav flex-column">
+          <li v-for="item in menuList" :key="item.id" class="nav-item">
+            <div v-if="item.children && item.children.length > 0">
+              <a
+                  class="nav-link text-white dropdown-toggle"
+                  data-bs-toggle="collapse"
+                  :href="'#submenu' + item.id"
+                  role="button"
+                  aria-expanded="false"
+                  :aria-controls="'submenu' + item.id"
+              >
+                <i class="iconfont" :class="item.icon"></i> {{ item.name }}
+              </a>
+              <ul
+                  class="nav flex-column collapse"
+                  :id="'submenu' + item.id"
+              >
+                <li
+                    v-for="sub in item.children"
+                    :key="sub.id"
+                    class="nav-item"
+                >
+                  <a
+                      class="nav-link text-white"
+                      href="#"
+                      @click="menuHandle(sub, false)"
+                  >
+                    <i class="iconfont" :class="sub.icon"></i> {{ sub.name }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <a
+                v-else
+                class="nav-link text-white"
+                href="#"
+                @click="menuHandle(item, false)"
+            >
+              <i class="iconfont" :class="item.icon"></i> {{ item.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="main-container flex-grow-1">
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <div class="head-lable">
+                <span v-if="goBackFlag" class="goBack" @click="goBack()">
+                  <img src="images/icons/btn_back@2x.png" alt="" /> Go Back
+                </span>
+            <span>{{ headTitle }}</span>
+          </div>
+          <div class="right-menu d-flex">
+            <div class="avatar-wrapper">{{ userInfo.name }}</div>
+            <img
+                src="images/icons/btn_close@2x.png"
+                class="outLogin ms-3"
+                alt="Logout"
+                @click="logout"
+            />
+          </div>
+        </div>
+      </nav>
+
+      <div class="app-main d-flex align-items-center justify-content-center">
+        <!-- 加载时显示的内容 -->
+        <div class="divTmp" v-if="loading"></div>
+
+        <!-- iframe 内容，只有在 loading 为 false 时显示 -->
+        <iframe
+            id="cIframe"
+            class="c_iframe"
+            name="cIframe"
+            :src="iframeUrl"
+            width="100%"
+            height="auto"
+            frameborder="0"
+            v-if="!loading"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 引入 Bootstrap 的 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 引入 Vue -->
+<script src="plugins/vue/vue.js"></script>
+<!-- 引入 axios -->
+<script src="plugins/axios/axios.min.js"></script>
+<script src="js/request.js"></script>
+<script src="./api/login.js"></script>
+
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        defAct: '3',
+        menuActived: '3',
+        userInfo: {},
+        menuList: [
+          {
+            id: '3',
+            name: 'Categories',
+            url: 'page/category/list.html',
+            icon: 'icon-category'
+          },
+          {
+            id: '4',
+            name: 'Pets',
+            url: 'page/pet/list.html',
+            icon: 'icon-pet'
+          },
+          {
+            id: '5',
+            name: 'Bonded Pairs',
+            url: 'page/pair/list.html',
+            icon: 'icon-pair'
+          },
+
+        ],
+        iframeUrl: 'page/category/list.html',
+        headTitle: 'Categories',
+        goBackFlag: false,
+        loading: true,
+        timer: null
+      }
+    },
+    created() {
+      const userInfo = window.localStorage.getItem('userInfo')
+      if (userInfo) {
+        this.userInfo = JSON.parse(userInfo)
+      }
+      this.closeLoading()
+    },
+    beforeDestroy() {
+      this.timer = null
+      clearTimeout(this.timer)
+    },
+    mounted() {
+      window.menuHandle = this.menuHandle
+    },
+    methods: {
+      logout() {
+        logoutApi().then((res) => {
+          if (res.code === 1) {
+            localStorage.removeItem('userInfo')
+            window.location.href = '/backend/page/login/login.html'
+          }
+        })
+      },
+      goBack() {
+        const menu = this.menuList.find(item => item.id === this.menuActived)
+        this.menuHandle(menu, false)
+      },
+      menuHandle(item, goBackFlag) {
+        this.showLoading();  // Show loading
+        axios.get(item.url)
+          .then(response => {
+            this.iframeUrl = item.url
+            this.headTitle = item.name
+            this.goBackFlag = goBackFlag
+          })
+          .finally(() => {
+            this.closeLoading(); // Close loading
+          })
+      },
+      showLoading() {
+        this.loading = true;  // Set it to be loading
+      },
+      hideLoading() {
+        this.loading = false; // Set it to loaded
+      },
+      closeLoading() {
+        setTimeout(() => {
+          this.hideLoading();  // Stop loading
+        }, 1000);  // Stop loading after 1 second
+      }
+    }
+  })
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
+  <link rel="stylesheet" href="../../styles/common.css" />
+  <link rel="stylesheet" href="../../styles/page.css" />
+  <style>
+    .addPet .el-input {
+      width: 130px;
+    }
+    .addPet .el-input-number__increase {
+      border-left: solid 1px #FFE1CA;
+      background: #fff3ea;
+    }
+    .addPet .el-input-number__decrease {
+      border-right: solid 1px #FFE1CA;
+      background: #fff3ea;
+    }
+    .addPet input {
+      border: 1px solid #ffe1ca;
+    }
+    .addPet .table {
+      border: solid 1px #EBEEF5;
+      border-radius: 3px;
+    }
+    .addPet .table th {
+      padding: 5px 0;
+    }
+    .addPet .table td {
+      padding: 7px 0;
+    }
+    .addPetList .seachPet {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+    .addPetList .el-dialog__body {
+      padding: 0;
+      border-bottom: solid 1px #ccc;
+    }
+    .addPetList .el-dialog__footer {
+      padding-top: 27px;
+    }
+
+    .addPet {
+      width: 777px;
+    }
+    .addPet .addBut {
+      background: #ffc200;
+      display: inline-block;
+      padding: 0px 20px;
+      border-radius: 3px;
+      line-height: 40px;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #333333;
+      font-weight: 500;
+    }
+    .addPet .content {
+      background: #fafafb;
+      padding: 20px;
+      border: solid 1px #ccc;
+      border-radius: 3px;
+    }
+    .addPetCon {
+      padding: 0 20px;
+      display: flex;
+      line-height: 40px;
+    }
+    .addPetCon .leftCont {
+      display: flex;
+      border-right: solid 2px #E4E7ED;
+      width: 60%;
+      padding: 15px;
+    }
+    .addPetCon .leftCont .tabBut {
+      width: 110px;
+    }
+    .addPetCon .leftCont .tabBut span {
+      display: block;
+      text-align: center;
+      border-right: solid 2px #f4f4f4;
+      cursor: pointer;
+    }
+    .addPetCon .leftCont .act {
+      border-color: #FFC200 !important;
+      color: #FFC200 !important;
+    }
+    .addPetCon .leftCont .tabList {
+      flex: 1;
+      padding: 15px;
+    }
+    .addPetCon .leftCont .tabList .table {
+      border: solid 1px #f4f4f4;
+      border-bottom: solid 1px #f4f4f4;
+    }
+    .addPetCon .leftCont .tabList .table .items {
+      border-bottom: solid 1px #f4f4f4;
+      padding: 0 10px;
+      display: flex;
+    }
+    .addPetCon .leftCont .tabList .table .items .el-checkbox, .addPetCon .leftCont .tabList .table .items .el-checkbox__label {
+      width: 100%;
+    }
+    .addPetCon .leftCont .tabList .table .items .item {
+      display: flex;
+      padding-right: 20px;
+    }
+    .addPetCon .leftCont .tabList .table .items .item span {
+      display: inline-block;
+      text-align: center;
+      flex: 1;
+    }
+    .addPetCon .ritCont {
+      width: 40%;
+      padding: 0 15px;
+    }
+    .addPetCon .ritCont .item {
+      box-shadow: 0px 1px 4px 3px rgba(0, 0, 0, 0.03);
+      display: flex;
+      text-align: center;
+      padding: 0 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      color: #818693;
+    }
+    .addPetCon .ritCont .item span:first-child {
+      text-align: left;
+      color: #20232A;
+    }
+    .addPetCon .ritCont .item .price {
+      display: inline-block;
+      flex: 1;
+    }
+    .addPetCon .ritCont .item .del {
+      cursor: pointer;
+    }
+    .addPetCon .ritCont .item .del img {
+      position: relative;
+      top: 5px;
+      width: 20px;
+    }
+
+    .addPetCon .el-checkbox__label{
+      width: 100%;
+    }
+    #pair-add-app .bondpairPet .el-form-item__label::before{
+        content: '*';
+        color: #F56C6C;
+        margin-right: 4px;
+    }
+
+    #pair-add-app .uploadImg .el-form-item__label::before{
+        content: '*';
+        color: #F56C6C;
+        margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="addBrand-container" id="pair-add-app">
+  <div class="container">
+    <el-form
+        ref="ruleForm"
+        :model="ruleForm"
+        :rules="rules"
+        :inline="true"
+        label-width="180px"
+        class="demo-ruleForm"
+    >
+      <div>
+        <el-form-item label="Name:" prop="name" >
+          <el-input v-model="ruleForm.name" placeholder="Enter pair name" maxlength="20"/>
+        </el-form-item>
+        <el-form-item label="Category:" prop="idType">
+          <el-select v-model="ruleForm.idType" placeholder="Enter pair category" @change="$forceUpdate()">
+            <el-option v-for="(item, index) in setPairList" :key="index" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-form-item>
+      </div>
+      <div>
+        <el-form-item label="Adoption fee:" prop="price">
+          <el-input v-model="ruleForm.price" placeholder="Enter Adopotion fee" />
+        </el-form-item>
+      </div>
+      <div>
+        <el-form-item label="Details:" class="bondpairPet">
+          <el-form-item>
+            <div class="addPet">
+              <span v-if="petTable.length == 0" class="addBut" @click="openAddPet"> + Add Details</span>
+              <div v-if="petTable.length != 0" class="content">
+                <div class="addBut" style="margin-bottom: 20px" @click="openAddPet">+ Add Details</div>
+                <div class="table">
+                  <el-table :data="petTable" style="width: 100%">
+                    <el-table-column prop="name" label="Name" width="180" align="center"></el-table-column>
+                    <el-table-column prop="price" label="Fee" width="180">
+                      <template slot-scope="scope"> {{ Number(scope.row.price) / 100 }} </template>
+                    </el-table-column>
+                    <el-table-column prop="address" label="copies" align="center">
+                      <template slot-scope="scope">
+                        <el-input-number
+                            v-model="scope.row.copies"
+                            size="small"
+                            :min="1"
+                            :max="99"
+                            label="Descriptions"
+                        ></el-input-number>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="address" label="Operation" width="180px;" align="center">
+                      <template slot-scope="scope">
+                        <el-button type="text" size="small" @click="delPetHandle(scope.$index)"> Delete </el-button>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </div>
+              </div>
+            </div>
+          </el-form-item>
+        </el-form-item>
+      </div>
+      <div>
+        <el-form-item label="Picture:" class="uploadImg">
+          <el-upload
+              class="avatar-uploader"
+              action="/common/upload"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :on-change="onChange"
+              ref="upload"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar"></img>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+      </div>
+      <div class="address">
+        <el-form-item label="Descriptions:">
+          <el-input v-model="ruleForm.description" type="textarea" :rows="3" placeholder="Add descriptions(200 words max)" maxlength="200"/>
+        </el-form-item>
+      </div>
+      <div class="subBox address">
+        <el-form-item>
+          <el-button @click="goBack()"> Cancel </el-button>
+          <el-button type="primary" @click="submitForm('ruleForm', false)"> Save </el-button>
+          <el-button
+              v-if="actionType == 'add'"
+              type="primary"
+              class="continue"
+              @click="submitForm('ruleForm', true)"
+          >
+            Save and add more
+          </el-button>
+        </el-form-item>
+      </div>
+    </el-form>
+  </div>
+  <el-dialog
+      title="Add Pet"
+      class="addPetList"
+      :visible.sync="dialogVisible"
+      width="60%"
+      :before-close="handleClose"
+  >
+    <el-input
+        v-model="value"
+        class="seachPet"
+        placeholder="Please enter pet's name to search"
+        style="width: 250px"
+        size="small"
+        clearable
+    >
+      <i slot="prefix" class="el-input__icon el-icon-search" style="cursor: pointer" @click="seachHandle"></i>
+    </el-input>
+    <!-- <AddPet ref="addpet" :check-list="checkList" :seach-key="seachKey" @checkList="getCheckList" /> -->
+
+    <div class="addPetCon">
+      <div class="leftCont">
+        <div
+            v-show="seachKey.trim() == ''"
+            class="tabBut"
+        >
+              <span
+                  v-for="(item, index) in petType"
+                  :key="index"
+                  :class="{act:index == keyInd}"
+                  @click="checkTypeHandle(index, item.id)"
+              >{{ item.name }}</span>
+        </div>
+        <div class="tabList">
+          <div class="table">
+            <div v-if="petAddList.length == 0" style="padding-left:10px">
+              暂无宠物!
+            </div>
+            <el-checkbox-group
+                v-if="petAddList.length > 0"
+                v-model="checkedList"
+                @change="checkedListHandle"
+            >
+              <div
+                  v-for="(item, index) in petAddList"
+                  :key="index"
+                  class="items"
+              >
+                <el-checkbox
+                    :key="index"
+                    :label="item"
+                >
+                  <div class="item">
+                    <span style="flex: 3;text-align: left">{{ item.petName }}</span>
+                    <span>{{ item.status == 0 ? 'Ordered' : 'Up for adoption' }}</span>
+                    <span>{{ Number(item.price)/100 }}</span>
+                  </div>
+                </el-checkbox>
+              </div>
+            </el-checkbox-group>
+          </div>
+        </div>
+      </div>
+      <div class="ritCont">
+        <div class="tit">
+          Selected Pet({{ checkedList.length }})
+        </div>
+        <div class="items">
+          <div
+              v-for="(item, ind) in checkedList"
+              :key="ind"
+              class="item"
+          >
+            <span>{{ item.petName }}</span>
+            <span class="price">￥ {{ Number(item.price)/100 }} </span>
+            <span
+                class="del"
+                @click="delCheck(ind)"
+            >
+                  <img
+                      src="../../images/icons/btn_clean@2x.png"
+                      alt=""
+                  >
+                </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span slot="footer" class="dialog-footer">
+          <el-button @click="handleClose">Cancel</el-button>
+          <el-button type="primary" @click="addTableList">Update</el-button>
+        </span>
+  </el-dialog>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../../plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../../plugins/element-ui/index.js"></script>
+<!-- 引入axios -->
+<script src="../../plugins/axios/axios.min.js"></script>
+<script src="../../js/request.js"></script>
+<script src="../../api/pair.js"></script>
+<script src="../../js/validate.js"></script>
+<script src="../../js/index.js"></script>
+<script src="../../api/pet.js"></script>
+<script>
+  new Vue({
+    el: '#pair-add-app',
+    data() {
+      return {
+        id: '',
+        actionType: '',
+        value: '',
+        setPairList: [],
+        seachKey: '',
+        petList: [],
+        imageUrl: '',
+        actionType: '',
+        petTable: [],
+        dialogVisible: false,
+        checkList: [],
+        ruleForm: {
+          name: '',
+          categoryId: '',
+          price: '',
+          code: '',
+          image: '',
+          description: '',
+          petList: [],
+          status: true,
+          idType: '',
+        },
+        petType: [],
+        petAddList: [],
+        petListCache: [],
+        keyInd : 0,
+        searchValue: '',
+        checkedList: []
+      }
+    },
+    computed: {
+      rules() {
+        return {
+          name: {
+            required: true,
+            message: 'Please enter pair name',
+            trigger: 'blur',
+          },
+          idType: {
+            required: true,
+            message: 'Please enter pair category',
+            trigger: 'change',
+          },
+          price: {
+            required: true,
+            // 'message': 'Please enter pair adoption fee',
+            validator: (rules, value, callback) => {
+                if (!value) {
+                  callback(new Error('Please enter adoption fee'))
+                } else {
+                  const reg = /^\d+(\.\d{0,2})?$/
+                  if (reg.test(value)) {
+                    if(value < 10000){
+                      callback()
+                    }else{
+                      callback(new Error('Pet\'s fee is less than 10,000'))
+                    }
+                  } else {
+                    callback(new Error('Adoption fee of pet should be number with at most two decimals'))
+                  }
+                }
+              },
+            trigger: 'blur',
+          },
+        }
+      },
+    },
+    watch:{
+      seachKey(value){
+        if (value.trim()){
+          this.getPetForName(this.seachKey)
+        }
+      },
+      checkList(value){
+        this.checkedList = value
+      }
+    },
+    created() {
+      this.getPetTypeList()
+      this.getPetType()
+      this.id = requestUrlParam('id')
+      this.actionType = this.id ? 'edit' : 'add'
+      if (this.id) {
+        this.init()
+      }
+    },
+    mounted() {},
+    methods: {
+      async init() {
+        queryBondpairById(this.id).then((res) => {
+          if (String(res.code) === '1') {
+            this.ruleForm = res.data
+            this.ruleForm.status = res.data.status === '1'
+            this.ruleForm.price = res.data.price / 100
+            this.imageUrl = `/common/download?name=${res.data.image}`
+            this.checkList = res.data.bondpairPetes
+            this.petTable = res.data.bondpairPetes
+            this.ruleForm.idType = res.data.categoryId
+            // this.ruleForm.password = ''
+          } else {
+            this.$message.error(res.msg || 'Failed')
+          }
+        })
+      },
+      seachHandle() {
+        this.seachKey = this.value
+      },
+      // 获取宠物家族分类
+      getPetTypeList() {
+        getCategoryList({ type: 2, page: 1, pageSize: 1000 }).then((res) => {
+          if (res.code === 1) {
+            this.setPairList = res.data.map((obj) => ({ ...obj, idType: obj.id }))
+          } else {
+            this.$message.error(res.msg || 'Failed')
+          }
+        })
+      },
+      // 删除宠物家族宠物
+      delPetHandle(index) {
+        this.petTable.splice(index, 1)
+        this.checkList.splice(index, 1)
+      },
+
+      // 获取添加宠物数据
+      getCheckList(value) {
+        this.checkList = [...value]
+      },
+
+                // 添加宠物
+      openAddPet() {
+        this.seachKey = ''
+        this.dialogVisible = true
+        //搜索条件清空，宠物重新查询，宠物类别选第一个重新查询
+        this.value = ''
+        this.keyInd = 0
+        this.getPetList(this.petType[0].id)
+      },
+      // 取消添加宠物
+      handleClose(done) {
+        // this.$refs.addpet.close()
+        this.dialogVisible = false
+        // this.checkList = JSON.parse(JSON.stringify(this.petTable))
+        // this.dialogVisible = false
+      },
+
+      // 保存添加宠物列表
+      addTableList() {
+        this.petTable = JSON.parse(JSON.stringify(this.checkList))
+        this.petTable.forEach((n) => {
+          n.copies = 1
+        })
+        this.dialogVisible = false
+        // 添加处理逻辑清空选中list
+        this.checkList = []
+      },
+      submitForm(formName, st) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let prams = { ...this.ruleForm }
+            prams.price *= 100
+            prams.bondpairPetes = this.petTable.map((obj) => ({
+              copies: obj.copies,
+              petId: obj.petId,
+              name: obj.name,
+              price: obj.price,
+            }))
+            prams.status = this.ruleForm ? 1 : 0
+            prams.categoryId = this.ruleForm.idType
+            if(prams.bondpairPetes.length < 1){
+              this.$message.error('Please select pet')
+              return
+            }
+            if(!this.imageUrl){
+              this.$message.error('Please upload picture')
+              return
+            }
+            // delete prams.petList
+            if (this.actionType == 'add') {
+              delete prams.id
+              addBondpair(prams)
+                .then((res) => {
+                  if (res.code === 1) {
+                    this.$message.success('Added!')
+                    if (!st) {
+                      this.goBack()
+                    } else {
+                      this.$refs.ruleForm.resetFields()
+                      this.petList = []
+                      this.petTable = []
+                      this.ruleForm = {
+                        name: '',
+                        categoryId: '',
+                        price: '',
+                        code: '',
+                        image: '',
+                        description: '',
+                        petList: [],
+                        status: true,
+                        id: '',
+                        idType: '',
+                      }
+                      this.imageUrl = ''
+                    }
+                  } else {
+                    this.$message.error(res.msg || 'Failed')
+                  }
+                })
+                .catch((err) => {
+                  this.$message.error('Failed:' + err)
+                })
+            } else {
+              delete prams.updateTime
+              editBondpair(prams)
+                .then((res) => {
+                  if (res.code === 1) {
+                    this.$message.success('Updated')
+                    this.goBack()
+                  } else {
+                    this.$message.error(res.msg || 'Failed')
+                  }
+                })
+                .catch((err) => {
+                  this.$message.error('Failed:' + err)
+                })
+            }
+          } else {
+            return false
+          }
+        })
+      },
+      handleAvatarSuccess (response, file, fileList) {
+        // this.imageUrl = response.data
+        if(response.code === 0 && response.msg === 'Please log in'){
+          window.top.location.href = '/backend/page/login/login.html'
+        }else{
+          this.imageUrl = `/common/download?name=${response.data}`
+          this.ruleForm.image = response.data
+        }
+      },
+
+      onChange (file) {
+        if(file){
+          const suffix = file.name.split('.')[1]
+          const size = file.size / 1024 / 1024 < 2
+          if(['png','jpeg','jpg'].indexOf(suffix) < 0){
+            this.$message.error('Only support png、jpeg、jpg file!')
+            this.$refs.upload.clearFiles()
+            return false
+          }
+          if(!size){
+            this.$message.error('Upload files should be less than 2MB!')
+            return false
+          }
+          return file
+        }
+      },
+      goBack() {
+        window.parent.menuHandle(
+          {
+            id: '5',
+            url: '/backend/page/pair/list.html',
+            name: 'Bonded Pairs',
+          },
+          false
+        )
+      },
+      // 获取宠物家族分类
+      getPetType () {
+        getCategoryList({'type':1}).then(res => {
+          if (res.code === 1) {
+            this.petType = res.data
+            this.getPetList(res.data[0].id)
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      },
+
+      // 通过宠物家族ID获取宠物列表分类
+      getPetList (id) {
+        queryPetList({categoryId: id}).then(res => {
+          if (res.code === 1) {
+            if (res.data.length == 0) {
+              this.petAddList = []
+              return
+            }
+            let newArr = res.data;
+            newArr.forEach((n) => {
+              n.petId = n.id
+              n.copies = 1
+              // n.petCopies = 1
+              n.petName = n.name
+            })
+            this.petAddList = newArr
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      },
+
+      // 关键词收搜宠物列表分类
+      getPetForName (name) {
+        queryPetList({name}).then(res => {
+          if (res.code === 1) {
+            let newArr = res.data
+            newArr.forEach((n) => {
+              n.petId = n.id
+              n.petName = n.name
+            })
+            this.petAddList = newArr
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      },
+
+      checkTypeHandle (ind,id) {
+        this.keyInd = ind
+        this.getPetList(id)
+      },
+
+      checkedListHandle (value) {
+        this.getCheckList(this.checkedList)
+      },
+
+      open (done) {
+        this.petListCache = JSON.parse(JSON.stringify(this.checkList))
+      },
+
+      close (done) {
+        this.checkList = this.petListCache
+      },
+
+      // 删除
+      delCheck (ind){
+        this.checkedList.splice(ind, 1)
+      }
+    },
+  })
+</script>
+</body>
+</html>
