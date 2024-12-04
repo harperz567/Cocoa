@@ -15,70 +15,101 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import cocoa.common.R;
 
+/**
+ * CommonController is a REST controller that provides endpoints for file upload and file download functionality.
+ * It allows uploading images to a specified location and downloading images for preview purposes.
+ *
+ * <p>The file paths are configured in the application properties file and accessed using @Value annotation.</p>
+ *
+ * <p>Logging is provided using Lombok's @Slf4j annotation.</p>
+ *
+ */
 @RestController
 @RequestMapping("/common")
 @Slf4j
 public class CommonController {
 
+    /**
+     * The base file storage path configured in the application properties file.
+     */
     @Value("${cocoa.path}")
     private String basePath;
 
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
+    }
     /**
-     * Upload file
-     * @param file
-     * @return
+     * Handles image upload requests.
+     * <p>This method processes the uploaded file, generates a unique file name with the original extension,
+     * stores it in the specified directory, and returns the generated file name for further use.</p>
+     *
+     * @param file the file uploaded by the client
+     * @return a {@link R} containing the generated file name
      */
     @PostMapping("/upload")
-    public R<String> upload(MultipartFile file){
-        // File is temperoray, need to be transfer into another directory, or it will be destroried after request
-        log.info(file.toString());
+    public R<String> upLoadFile(MultipartFile file) {
+        log.info("Received file: {}", file.toString());
 
-        // Original file name
-        String orginalFileName = file.getOriginalFilename();
-        String suffix = orginalFileName.substring(orginalFileName.lastIndexOf("."));
+        // Extract the original file name and determine the file extension
+        String originalFileName = file.getOriginalFilename();
+        String suffix = originalFileName.substring(originalFileName.lastIndexOf('.'));
 
-        // Use UUID to generate new file name
+        // Generate a unique file name using UUID
         String fileName = UUID.randomUUID().toString() + suffix;
 
-        // Create new directory
+        // Ensure the target directory exists
         File dir = new File(basePath);
-        if (!dir.exists()){
-            // If directory doesn't exist, create it
-            dir.mkdirs();
+        if (!dir.exists()) {
+            dir.mkdirs(); // Create directory if it doesn't exist
         }
+
         try {
+            // Save the file to the target directory
             file.transferTo(new File(basePath + fileName));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error occurred while saving the file", e);
         }
+
+        // Return the file name for future reference
         return R.success(fileName);
     }
 
     /**
-     * Download file
-     * @param name
-     * @param response
+     * Handles requests to download and preview an uploaded file.
+     * <p>This method reads the file from the server's storage and writes it to the HTTP response output stream
+     * to allow the client to view or download the file.</p>
+     *
+     * @param httpServletResponse the HTTP response object used to send the file
+     * @param name                the name of the file to be downloaded
+     * @throws IOException if an I/O error occurs during file reading or writing
      */
     @GetMapping("/download")
-    public void download(String name, HttpServletResponse response){
+    public void fileDownload(HttpServletResponse httpServletResponse, String name) {
         try {
-            // Input Stream, we get file content through input stream
+            // Read the file from the specified path
             FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
-            // Output stream, we write file content to chrome and display file through output stream
-            ServletOutputStream outputStream = response.getOutputStream();
-            response.setContentType("image/jpeg");
-            int len = 0;
-            byte[] bytes = new byte[1024];
-            while ((len = fileInputStream.read(bytes)) != -1){
-                outputStream.write(bytes, 0, len);
+
+            // Get the output stream from the HTTP response
+            ServletOutputStream outputStream = httpServletResponse.getOutputStream();
+
+            // Set the response content type to indicate an image is being sent
+            httpServletResponse.setContentType("image/jpeg");
+
+            // Buffer for reading the file in chunks
+            byte[] fileArray = new byte[1024];
+            int length;
+
+            // Write the file content to the response output stream
+            while ((length = fileInputStream.read(fileArray)) != -1) {
+                outputStream.write(fileArray, 0, length);
                 outputStream.flush();
             }
-            // Close resourses
-            outputStream.close();
-            fileInputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+            // Close the resources
+            fileInputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            log.error("Error occurred while downloading the file", e);
+        }
     }
 }
