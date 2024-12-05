@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
+  <link rel="stylesheet" href="../../styles/common.css" />
+  <link rel="stylesheet" href="../../styles/page.css" />
+</head>
+<body>
+   <div class="dashboard-container" id="pet-app">
+    <div class="container">
+      <div class="tableBar">
+        <el-input
+          v-model="input"
+          placeholder="Enter pet name"
+          style="width: 250px"
+          clearable
+          @keyup.enter.native="handleQuery"
+        >
+          <i
+            slot="prefix"
+            class="el-input__icon el-icon-search"
+            style="cursor: pointer"
+            @click="init"
+          ></i>
+        </el-input>
+        <div class="tableLab">
+          <span class="span-btn delBut non" @click="deleteHandle('批量', null)">Delete Multiple</span>
+          <span class="span-btn blueBug non" @click="statusHandle('1')">Enable Multiple</span>
+          <span style="border:none;" class="span-btn delBut non" @click="statusHandle('0')">Disable Multiple</span>
+          <el-button
+            type="primary"
+            @click="addPettype('add')"
+          >
+            + Add a pet
+          </el-button>
+        </div>
+      </div>
+      <el-table
+        :data="tableData"
+        stripe
+        class="tableBox"
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column
+          type="selection"
+          width="25"
+        ></el-table-column>
+        <el-table-column
+          prop="name"
+          label="Name"
+        ></el-table-column>
+        <el-table-column prop="image" label="pic" align="center">
+          <template slot-scope="{ row }">
+            <el-image style="width: auto; height: 40px; border:none;cursor: pointer;" 
+            :src="getImage(row.image)" 
+            :preview-src-list="[ `/common/download?name=${row.image}` ]" >
+            <div slot="error" class="image-slot">
+              <img src="./../../images/noImg.png"  style="width: auto; height: 40px; border:none;" >
+            </div>  
+          </el-image>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="categoryName"
+          label="category"
+        ></el-table-column>
+        <el-table-column label="Adoption Fee">
+          <template slot-scope="scope">
+            <span style="margin-right: 10px;">￥{{ scope.row.price/100 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="Status">
+          <template slot-scope="scope">
+            <span style="margin-right: 10px;">{{ scope.row.status == '0' ? 'Ordered' : 'Up for adoption' }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="updateTime"
+          label="Last Updated"
+        >
+        </el-table-column>
+        <el-table-column
+          label="operation"
+          width="160"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              size="small"
+              class="blueBug"
+              @click="addPettype(scope.row.id)"
+            >
+              Edit
+            </el-button>
+            <el-button
+              type="text"
+              size="small"
+              class="blueBug"
+              @click="statusHandle(scope.row)"
+            >
+              {{ scope.row.status == '0' ? 'Order' : 'Up for adoption' }}
+            </el-button>
+            <el-button
+              type="text"
+              size="small"
+              class="delBut non"
+              @click="deleteHandle('Delete one', scope.row.id)"
+            >
+              Delete
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="pageList"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="counts"
+        @size-change="handleSizeChange"
+        :current-page.sync="page"
+        @current-change="handleCurrentChange"
+      ></el-pagination>
+    </div>
+  </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="../../plugins/vue/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="../../plugins/element-ui/index.js"></script>
+    <!-- 引入axios -->
+    <script src="../../plugins/axios/axios.min.js"></script>
+    <script src="../../js/request.js"></script>
+    <script src="../../api/pet.js"></script>
+    <script>
+      new Vue({
+        el: '#pet-app',
+        data() {
+          return {
+             input: '',
+             counts: 0,
+             page: 1,
+             pageSize: 10,
+             tableData : [],
+             petState : '',
+             checkList: []
+          }
+        },
+        computed: {},
+        created() {
+          this.init()
+        },
+        mounted() {
+        },
+        methods: {
+          async init () {
+            const params = {
+              page: this.page,
+              pageSize: this.pageSize,
+              name: this.input ? this.input : undefined
+            }
+            await getPetPage(params).then(res => {
+              if (String(res.code) === '1') {
+                this.tableData = res.data.records || []
+                this.counts = res.data.total
+              }
+            }).catch(err => {
+              this.$message.error('Failed: ' + err)
+            })
+          },
+          getImage (image) {
+            return `/common/download?name=${image}`
+          },
+          handleQuery() {
+            this.page = 1;
+            this.init();
+          },
+          // Add
+          addPettype (st) {
+            if (st === 'add'){
+              window.parent.menuHandle({
+                id: '4',
+                url: '/backend/page/pet/add.html',
+                name: 'Add'
+              },true)
+            } else {
+              window.parent.menuHandle({
+                id: '4',
+                url: '/backend/page/pet/add.html?id='+st,
+                name: 'Edit'
+              },true)
+            }
+          },
+
+          // Delete
+          deleteHandle (type, id) {
+            if (type === 'Multiple' && id === null) {
+              if (this.checkList.length === 0) {
+                return this.$message.error('Please select a pet!')
+              }
+            }
+            this.$confirm('Delete operation is permanent, are you sure?', 'Delete', {
+              'confirmButtonText': 'Delete',
+              'cancelButtonText': 'Cancel',
+            }).then(() => {
+              deletePet(type === 'Multiple' ? this.checkList.join(',') : id).then(res => {
+                if (res.code === 1) {
+                  this.$message.success('Deleted!')
+                  this.handleQuery()
+                } else {
+                  this.$message.error(res.msg || 'Failed')
+                }
+              }).catch(err => {
+                this.$message.error('Failed: ' + err)
+              })
+            })
+          },
+
+          //Edit status
+          statusHandle (row) {
+            let params = {}
+            if (typeof row === 'string' ) {
+              if (this.checkList.length === 0) {
+                this.$message.error('Please select a pet!')
+                return false
+              }
+              params.id = this.checkList.join(',')
+              params.status = row
+            } else {
+              params.id = row.id
+              params.status = row.status ? '0' : '1'
+            }
+            this.petState = params
+            this.$confirm('Edit operation is permanent, are you sure', 'Warning', {
+              'confirmButtonText': 'Edit',
+              'cancelButtonText': 'Cancel',
+              'type': 'warning'
+            }).then(() => {
+              // 起售停售---批量起售停售接口
+              petStatusByStatus(this.petState).then(res => {
+                if (res.code === 1) {
+                  this.$message.success('Updated')
+                  this.handleQuery()
+                } else {
+                  this.$message.error(res.msg || 'Failed')
+                }
+              }).catch(err => {
+                  this.$message.error('Failed: ' + err)
+              })
+            })
+          },
+
+          // 全部操作
+          handleSelectionChange (val){
+            let checkArr = []
+            val.forEach((n) => {
+              checkArr.push(n.id)
+            })
+            this.checkList = checkArr
+          },
+          handleSizeChange (val) {
+            this.pageSize = val
+            this.init()
+          },
+          handleCurrentChange (val) {
+            this.page = val
+            this.init()
+          }
+        }
+      })
+    </script>
+</body>
+</html>
