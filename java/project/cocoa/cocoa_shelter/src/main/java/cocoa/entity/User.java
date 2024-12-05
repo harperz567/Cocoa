@@ -4,7 +4,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 用户信息
+ * User info
  */
 @Data
 public class User implements Serializable {
@@ -14,26 +14,26 @@ public class User implements Serializable {
     private Long id;
 
 
-    //姓名
+    // The name of the user
     private String name;
 
 
-    //手机号
+    // Phone number
     private String phone;
 
 
-    //性别 0 女 1 男
+    // Gender, 0 represents male, 1 represents female, 2 represents others
     private String sex;
 
 
-    //身份证号
+    // email info
     private String idNumber;
 
 
-    //头像
+    // profile pic
     private String avatar;
 
 
-    //状态 0:禁用，1:正常
+    // Status: 0 represents disabled, 1 represents enabled
     private Integer status;
 }

@@ -12,7 +12,7 @@ function isUSPhoneNumber(val) {
   return regex.test(val);
 }
 
-}
+
 
 // Check username
 function checkUserName (rule, value, callback){
@@ -49,4 +49,3 @@ function checkPhone (rule, value, callback){
 
 
 
-}

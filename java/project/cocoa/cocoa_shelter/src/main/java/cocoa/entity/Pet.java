@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- 宠物
+ * Pets class
  */
 @Data
 public class Pet implements Serializable {
@@ -17,56 +17,43 @@ public class Pet implements Serializable {
 
     private Long id;
 
-
-    //宠物名称
+    // Pet name
     private String name;
 
-
-    //宠物分类id
+    //Pet id
     private Long categoryId;
 
-
-    //宠物价格
+    // Adoption fee
     private BigDecimal price;
 
-
-    //商品码
+    // A code(What's this?????????????)
     private String code;
 
-
-    //图片
+    // Picture of the pet
     private String image;
 
-
-    //描述信息
+    // Pet description
     private String description;
 
-
-    //0 停售 1 起售
+    // 0: Ordered 1: Up for adoption
     private Integer status;
 
-
-    //顺序
+    // Order
     private Integer sort;
-
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
 
     @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
-
-    //是否删除
+    // Whether it is deleted
     private Integer isDeleted;
 
 }

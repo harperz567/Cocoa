@@ -1,3 +1,7 @@
+/**
+ * Controller for managing animal families (Bondpairs).
+ * Provides APIs for creating, querying, updating, and deleting bondpairs.
+ */
 package cocoa.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -23,9 +27,7 @@ import cocoa.service.CategoryService;
 import cocoa.service.BondpairPetService;
 import cocoa.service.BondpairService;
 
-/**
- * Animal family management
- */
+
 @RestController
 @RequestMapping("/bondpair")
 @Slf4j
@@ -38,9 +40,10 @@ public class BondpairController {
     private CategoryService categoryService;
 
     /**
-     * Add an animal family
-     * @param bondpairDto
-     * @return
+     * Adds a new animal family (bondpair) along with its associated pets.
+     *
+     * @param bondpairDto the data transfer object containing bondpair details
+     * @return a success message indicating the bondpair was added
      */
     @PostMapping
     public R<String> save(@RequestBody BondpairDto bondpairDto){
@@ -50,11 +53,12 @@ public class BondpairController {
     }
 
     /**
-     * Animal family query and check by page
-     * @param page
-     * @param pageSize
-     * @param name
-     * @return
+     * Queries and paginates animal families based on name and other conditions.
+     *
+     * @param page the current page number
+     * @param pageSize the number of records per page
+     * @param name the name filter for querying bondpairs (optional)
+     * @return a paginated result of bondpairs
      */
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize, String name){
@@ -96,9 +100,10 @@ public class BondpairController {
     }
 
     /**
-     * Delete a family
-     * @param ids
-     * @return
+     * Deletes multiple animal families by their IDs.
+     *
+     * @param ids the list of bondpair IDs to delete
+     * @return a success message indicating the bondpairs were deleted
      */
     @DeleteMapping
     public R<String> delete(@RequestParam List<Long> ids){
@@ -109,9 +114,10 @@ public class BondpairController {
     }
 
     /**
-     * Display animal family data according to query condition
-     * @param bondpair
-     * @return
+     * Queries animal families based on specific conditions.
+     *
+     * @param bondpair an object containing query conditions (e.g., category ID or status)
+     * @return a list of bondpairs matching the query conditions
      */
     @GetMapping("/list")
     public R<List<Bondpair>> list(Bondpair bondpair){
@@ -125,10 +131,16 @@ public class BondpairController {
         return R.success(list);
     }
 
+    /**
+     * Retrieves detailed information about a specific animal family by its ID.
+     *
+     * @param id the ID of the bondpair to retrieve
+     * @return a data transfer object containing bondpair details
+     */
     @GetMapping("/{id}")
-    public R<BondpairDto> getSetmal(@PathVariable("id") Long id){
-        log.info("获取宠物家族Id"+id);
-        BondpairDto setmealDto= bondpairService.getBondpairData(id);
-        return R.success(setmealDto);
+    public R<BondpairDto> getBondpair(@PathVariable("id") Long id){
+        log.info("Get bond pair Id"+id);
+        BondpairDto bondpairDto= bondpairService.getBondpairData(id);
+        return R.success(bondpairDto);
     }
 }

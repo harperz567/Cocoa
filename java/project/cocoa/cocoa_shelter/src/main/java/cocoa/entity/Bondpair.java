@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 宠物家族
+ * Bonded pair class
  */
 @Data
 public class Bondpair implements Serializable {
@@ -18,31 +18,31 @@ public class Bondpair implements Serializable {
     private Long id;
 
 
-    //分类id
+    // Category id
     private Long categoryId;
 
 
-    //宠物家族名称
+    // Bonded pair name
     private String name;
 
 
-    //宠物家族价格
+    // Adoption fee
     private BigDecimal price;
 
 
-    //状态 0:停用 1:启用
+    // 0: Ordered 1: Up for adoption
     private Integer status;
 
 
-    //编码
+    // Delete this!!!!!!!!!!!!!!!!!!!!!!!!!
     private String code;
 
 
-    //描述信息
+    // Pair description
     private String description;
 
 
-    //图片
+    // Picture
     private String image;
 
 
@@ -62,6 +62,6 @@ public class Bondpair implements Serializable {
     private Long updateUser;
 
 
-    //是否删除
+    // Whether it is deleted
     private Integer isDeleted;
 }
