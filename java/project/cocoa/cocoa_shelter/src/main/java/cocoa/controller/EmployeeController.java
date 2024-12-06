@@ -44,7 +44,6 @@ public class EmployeeController {
          * that we want to query the username field
          */
 
-
         // 3.If there is no such user, return fail
         if (emp == null){
             return R.error("Login Failed!");
@@ -77,7 +76,6 @@ public class EmployeeController {
         return R.success("Logout successfully");
     }
 
-
     /**
      * Add new employee
      * @param request
@@ -89,9 +87,6 @@ public class EmployeeController {
         log.info("Added a new employee, info: {}", employee.toString());
         // Starter password: 123456
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-
-
-
 
         employeeService.save(employee);
         if (employeeService.save(employee)) {

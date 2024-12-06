@@ -4,36 +4,39 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 用户信息
+ * Represents user information.
+ * This class is used as an entity for the User table.
+ * <p>
+ * Fields include basic user details like name, phone, gender, and status.
+ * Implements {@link Serializable} for object serialization.
  */
 @Data
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+
     private Long id;
 
 
-    //姓名
     private String name;
 
 
-    //手机号
+
     private String phone;
 
 
-    //性别 0 女 1 男
+    //SEX 0 Female 1 male
     private String sex;
 
 
-    //身份证号
     private String idNumber;
 
 
-    //头像
     private String avatar;
 
 
-    //状态 0:禁用，1:正常
+    //Status 0:banned，1:normal
     private Integer status;
 }

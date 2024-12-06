@@ -1,5 +1,6 @@
 package cocoa.service;
 
+import cocoa.dto.PetDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 import cocoa.dto.BondpairDto;
@@ -20,5 +21,6 @@ public interface BondpairService extends IService<Bondpair> {
     public void removeWithPet(List<Long> ids);
 
     public BondpairDto getBondpairData(Long id);
+
 
 }

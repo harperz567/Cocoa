@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-宠物详情
+ Pet Details
  */
 @Data
 public class PetDetail implements Serializable {
@@ -17,15 +17,15 @@ public class PetDetail implements Serializable {
     private Long id;
 
 
-    //宠物id
+    // Pet id
     private Long petId;
 
 
-    //详情名称
+    // The detail name
     private String name;
 
 
-    //详情数据list
+    // The datail list
     private String value;
 
 
@@ -45,7 +45,7 @@ public class PetDetail implements Serializable {
     private Long updateUser;
 
 
-    //是否删除
+    // Whether it is deleted
     private Integer isDeleted;
 
 }

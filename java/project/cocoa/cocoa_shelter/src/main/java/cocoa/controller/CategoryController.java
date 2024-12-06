@@ -1,3 +1,7 @@
+/**
+ * Controller for managing categories.
+ * Provides APIs for creating, updating, deleting, and querying categories.
+ */
 package cocoa.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -17,9 +21,7 @@ import cocoa.common.R;
 import cocoa.entity.Category;
 import cocoa.service.CategoryService;
 
-/**
- * Category management, has 5 methods: add, browse, delete, update, query
- */
+
 @RestController
 @RequestMapping("category")
 @Slf4j
@@ -29,9 +31,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * Add new category
-     * @param category
-     * @return returns a string(a notification message)
+     * Adds a new category.
+     *
+     * @param category the category object to be added
+     * @return a success message indicating the category was added
      */
     @PostMapping
     public R<String> save(@RequestBody Category category){
@@ -41,10 +44,11 @@ public class CategoryController {
     }
 
     /**
-     * Browse all categories with pagination
-     * @param page
-     * @param pageSize
-     * @return
+     * Paginates through all categories.
+     *
+     * @param page the current page number
+     * @param pageSize the number of records per page
+     * @return a paginated result of categories
      */
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize){
@@ -62,9 +66,10 @@ public class CategoryController {
     }
 
     /**
-     * Delete a category
-     * @param id of the deleted category
-     * @return returns a string(a notification message)
+     * Deletes a category by its ID.
+     *
+     * @param id the ID of the category to be deleted
+     * @return a success message indicating the category was deleted
      */
     @DeleteMapping
     public R<String> delete(@RequestParam String id){
@@ -74,9 +79,10 @@ public class CategoryController {
     }
 
     /**
-     * Update a category
-     * @param category
-     * @return returns a string(a notification message)
+     * Updates an existing category.
+     *
+     * @param category the updated category object
+     * @return a success message indicating the category was updated
      */
     @PutMapping
     public R<String> update(@RequestBody Category category){
@@ -86,9 +92,10 @@ public class CategoryController {
     }
 
     /**
-     * Query all animals/pairs based on category
-     * @param category
-     * @return return a list of animals/pairs under a certain category
+     * Queries all animals/pairs under a specific category.
+     *
+     * @param category an object containing query conditions (e.g., type)
+     * @return a list of categories matching the query conditions
      */
     @GetMapping("/list")
     public R<List<Category>> list(Category category){

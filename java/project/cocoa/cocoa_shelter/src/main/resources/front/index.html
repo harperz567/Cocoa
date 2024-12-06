@@ -1,339 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui">
-    <title>Cocoa</title>
-    <link rel="icon" href="images/favico.ico">
-    <!--不同屏幕尺寸根字体设置-->
-    <script src="./js/base.js"></script>
-    <!--element-ui的样式-->
-    <link rel="stylesheet" href="../backend/plugins/element-ui/index.css" />
-    <!--引入vant样式-->
-    <link rel="stylesheet" href="styles/vant.min.css"/>
-    <!-- 引入样式  -->
-    <link rel="stylesheet" href="styles/index.css" />
-    <!--本页面内容的样式-->
-    <link rel="stylesheet" href="styles/main.css" />
-  </head>
-  <body>
-    <div id="main" class="app">
-      <div class="divHead">
-        <img src="./images/user.png" @click="toUserPage"/>
-      </div>
-      <div class="divTitle">
-        <div class="divStatic">
-          <img src="./images/logo_square.jpg"  class="logo"/>
-          <div class="divDesc">
-            <div class="divName">Cocoa</div>
-            <div class="divSend">
-                <span><img src="./images/paw_logo.png"/> Smart Match Recommendations</span>
-                <span><img src="./images/paw_logo.png"/> Detailed Pet Information</span>
-                <span><img src="./images/paw_logo.png"/> Easy Application</span>
-            </div>
-          </div>
-        </div>
-        <div class="divDesc">
-          Cocoa is a great animal shelter management system!
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no,minimal-ui">
+  <title>Cocoa</title>
+  <link rel="icon" href="images/favico.ico">
+  <!--不同屏幕尺寸根字体设置-->
+  <script src="./js/base.js"></script>
+  <!--element-ui的样式-->
+  <link rel="stylesheet" href="../backend/plugins/element-ui/index.css" />
+  <!--引入vant样式-->
+  <link rel="stylesheet" href="styles/vant.min.css"/>
+  <!-- 引入样式  -->
+  <link rel="stylesheet" href="styles/index.css" />
+  <!--本页面内容的样式-->
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+<div id="main" class="app">
+  <div class="divHead">
+    <img src="./images/user.png" @click="toUserPage"/>
+  </div>
+  <div class="divTitle">
+    <div class="divStatic">
+      <img src="./images/logo_square.jpg"  class="logo"/>
+      <div class="divDesc">
+        <div class="divName">Cocoa</div>
+        <div class="divSend">
+          <span><img src="./images/paw_logo.png"/> Smart Match Recommendations</span>
+          <span><img src="./images/paw_logo.png"/> Detailed Pet Information</span>
+          <span><img src="./images/paw_logo.png"/> Easy Application</span>
         </div>
       </div>
-      <div class="divBody">
-        <div class="divType">
-          <ul>
-            <li v-for="(item,index) in categoryList" :key="index" @click="categoryClick(index,item.id,item.type)" :class="{active:activeType === index}">{{item.name}}</li>
-          </ul>
-        </div>
-        <div class="divMenu">
-          <div>
-            <div class="divItem" v-for="(item,index) in petList" :key="index" @click="petDetails(item)">
-              <el-image :src="imgPathConvert(item.image)" >
-                <div slot="error" class="image-slot">
-                  <img src="./images/noImg.png"/>
-                </div>
-              </el-image>
-              <div>
-                <div class="divName">{{item.name}}</div>
-                <div class="divDesc">{{item.description}}</div>
-
-                <div class="divBottom"><span>￥</span><span>{{item.price/100}}</span></div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-        <van-dialog v-model="dialogDetail.show" :show-confirm-button="false" class="dialogDetail" ref="detailDialog">
-          <div class="dialogTitle">{{dialogDetail.name}}</div>
-          <div class="divContent">
-            <div v-for="detail in dialogDetail.details" :key="detail.id">
-                <div class="divDetailTitle">{{detail.name}}</div>
-                <span v-for="item in JSON.parse(detail.value)"
-                :key="item"  
-                @click="detailClick(detail,item)"
-                :class="{spanActive:detail.petDetail === item}"
-                >{{item}}</span>
-            </div>
-          </div>
-          <div class="divBottom">
-            <div><span class="spanMoney">￥</span>{{dialogDetail.price/100}}</div>
-          </div>
-          <div class="divDetailClose" @click="dialogDetail.show = false">
-            <img src="./images/close.png"/>
-          </div>
-        </van-dialog>
-
-        </van-popup>
-        <van-dialog v-model="detailsDialog.show" 
-                    :show-confirm-button="false" 
-                    class="detailsDialog" 
-                    ref="detailsDialog"
-                    v-if="detailsDialog.show"
-                    >
-          <div class="divContainer">
-            <el-image :src="imgPathConvert(detailsDialog.item.image)" >
-              <div slot="error" class="image-slot">
-                <img src="./images/noImg.png"/>
-              </div>
-            </el-image>
-            <div class="title">{{detailsDialog.item.name}}</div>
-            <div class="content">{{detailsDialog.item.description}}</div>
-          </div>
-          <div class="divNum">
-            <div class="left">
-              <span>￥</span><span>{{detailsDialog.item.price/100}}</span>
-            </div>
-
-          </div>
-          <div class="detailsDialogClose" @click="detailsDialog.show = false">
-            <img src="./images/close.png"/>
-          </div>
-        </van-dialog>
-        <van-dialog v-model="setPairDialog.show"
-                    :show-confirm-button="false" 
-                    class="setPairDetailsDialog"
-                    ref="setPairDetailsDialogd"
-                    v-if="setPairDialog.show"
-                    >
-          <div class="divContainer">
-            <div class="title">{{setPairDialog.item.name}}</div>
-              <div class="item" v-for="(item,index) in setPairDialog.item.list" :key="index">
-                <el-image :src="imgPathConvert(item.image)">
-                  <div slot="error" class="image-slot">
-                    <img src="./images/noImg.png"/>
-                  </div>
-                </el-image>
-                <div class="divSubTitle">{{item.name + '(' + item.copies + '份)' }}
-                  <div class="divPrice">
-                    <span>￥</span><span>{{item.price/100}}</span>
-                  </div>
-                </div>                
-                <div class="content">{{item.description}}</div>
-              </div>
-            </div>
-          <div class="divNum">
-              <div class="left">
-                <span>￥</span><span>{{setPairDialog.item.price/100}}</span>
-              </div>
-              <div class="right">
-
-                  <div class="divPetNum">{{setPairDialog.item.number}}</div>
-
-              </div>
-          </div>
-          <div class="detailsDialogClose" @click="setPairDialog.show = false">
-            <img src="./images/close.png"/>
-          </div>
-        </van-dialog>
     </div>
-        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
-        <script src="../backend/plugins/vue/vue.js"></script>
-        <!-- 引入组件库 -->
-        <script src="../backend/plugins/element-ui/index.js"></script>
-        <!-- 引入vant样式 -->
-        <script src="./js/vant.min.js"></script>        
-        <!-- 引入axios -->
-        <script src="../backend/plugins/axios/axios.min.js"></script>
-        <script src="./js/request.js"></script>
-        <script src="./js/common.js"></script>
-        <script src="./api/main.js"></script>
-  </body>
-  <script>
-      new Vue({
-          el:'#main',
-          data(){
-            return {
-              //左边宠物类别index
-              activeType:0,
-              categoryList:[],
-              categoryId:undefined,
-              petList:[],
-              cartData:[],
-              dialogDetail:{
-                name:'',
-                details:[],
-                petId:undefined,
-                price:undefined,
-                show:false,
-                image:''
-              },
-              cartDialogShow:false,
-              detailsDialog:{
-                show:false,
-                item:{image:''}
-              },
-              setPairDialog:{
-                show:false,
-                item:{}
-              },
+    <div class="divDesc">
+      Cocoa is a great animal shelter management system!
+    </div>
+  </div>
+  <div class="divBody">
+    <div class="divType">
+      <ul>
+        <li v-for="(item,index) in categoryList" :key="index" @click="categoryClick(index,item.id,item.type)" :class="{active:activeType === index}">{{item.name}}</li>
+      </ul>
+    </div>
+    <div class="divMenu">
+      <div>
+        <div class="divItem" v-for="(item,index) in petList" :key="index" @click="petDetails(item)">
+          <el-image :src="imgPathConvert(item.image)" >
+            <div slot="error" class="image-slot">
+              <img src="./images/noImg.png"/>
+            </div>
+          </el-image>
+          <div>
+            <div class="divName">{{item.name}}</div>
+            <div class="divDesc">{{item.description}}</div>
+
+            <div class="divBottom"><span>￥</span><span>{{item.price/100}}</span></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <van-dialog v-model="dialogDetail.show" :show-confirm-button="false" class="dialogDetail" ref="detailDialog">
+    <div class="dialogTitle">{{dialogDetail.name}}</div>
+    <div class="divContent">
+      <div v-for="detail in dialogDetail.details" :key="detail.id">
+        <div class="divDetailTitle">{{detail.name}}</div>
+        <span v-for="item in JSON.parse(detail.value)"
+              :key="item"
+              @click="detailClick(detail,item)"
+              :class="{spanActive:detail.petDetail === item}"
+        >{{item}}</span>
+      </div>
+    </div>
+    <div class="divBottom">
+      <div><span class="spanMoney">￥</span>{{dialogDetail.price/100}}</div>
+    </div>
+    <div class="divDetailClose" @click="dialogDetail.show = false">
+      <img src="./images/close.png"/>
+    </div>
+  </van-dialog>
+
+  </van-popup>
+  <van-dialog v-model="detailsDialog.show"
+              :show-confirm-button="false"
+              class="detailsDialog"
+              ref="detailsDialog"
+              v-if="detailsDialog.show"
+  >
+    <div class="divContainer">
+      <el-image :src="imgPathConvert(detailsDialog.item.image)" >
+        <div slot="error" class="image-slot">
+          <img src="./images/noImg.png"/>
+        </div>
+      </el-image>
+      <div class="title">{{detailsDialog.item.name}}</div>
+      <div class="content">{{detailsDialog.item.description}}</div>
+    </div>
+    <div class="divNum">
+      <div class="left">
+        <span>￥</span><span>{{detailsDialog.item.price/100}}</span>
+      </div>
+
+    </div>
+    <div class="detailsDialogClose" @click="detailsDialog.show = false">
+      <img src="./images/close.png"/>
+    </div>
+  </van-dialog>
+  <van-dialog v-model="setPairDialog.show"
+              :show-confirm-button="false"
+              class="setPairDetailsDialog"
+              ref="setPairDetailsDialogd"
+              v-if="setPairDialog.show"
+  >
+    <div class="divContainer">
+      <div class="title">{{setPairDialog.item.name}}</div>
+      <div class="item" v-for="(item,index) in setPairDialog.item.list" :key="index">
+        <el-image :src="imgPathConvert(item.image)">
+          <div slot="error" class="image-slot">
+            <img src="./images/noImg.png"/>
+          </div>
+        </el-image>
+        <div class="divSubTitle">{{item.name + '(' + item.copies + '份)' }}
+          <div class="divPrice">
+            <span>￥</span><span>{{item.price/100}}</span>
+          </div>
+        </div>
+        <div class="content">{{item.description}}</div>
+      </div>
+    </div>
+    <div class="divNum">
+      <div class="left">
+        <span>￥</span><span>{{setPairDialog.item.price/100}}</span>
+      </div>
+      <div class="right">
+
+        <div class="divPetNum">{{setPairDialog.item.number}}</div>
+
+      </div>
+    </div>
+    <div class="detailsDialogClose" @click="setPairDialog.show = false">
+      <img src="./images/close.png"/>
+    </div>
+  </van-dialog>
+</div>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="../backend/plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="../backend/plugins/element-ui/index.js"></script>
+<!-- 引入vant样式 -->
+<script src="./js/vant.min.js"></script>
+<!-- 引入axios -->
+<script src="../backend/plugins/axios/axios.min.js"></script>
+<script src="./js/request.js"></script>
+<script src="./js/common.js"></script>
+<script src="./api/main.js"></script>
+</body>
+<script>
+  new Vue({
+      el:'#main',
+      data(){
+        return {
+          //左边宠物类别index
+          activeType:0,
+          categoryList:[],
+          categoryId:undefined,
+          petList:[],
+          cartData:[],
+          dialogDetail:{
+            name:'',
+            details:[],
+            petId:undefined,
+            price:undefined,
+            show:false,
+            image:''
+          },
+          cartDialogShow:false,
+          detailsDialog:{
+            show:false,
+            item:{image:''}
+          },
+          setPairDialog:{
+            show:false,
+            item:{}
+          },
+        }
+      },
+      computed:{
+        goodsNum(){
+          let num = 0
+          this.cartData.forEach(item=>{
+            num += item.number
+          })
+          if(num <99){
+            return num
+          }else{
+            return '99+'
+          }
+        },
+
+      },
+      created(){
+      },
+
+      mounted(){
+        this.initData()
+      },
+      methods:{
+        //初始化数据
+        initData(){
+          Promise.all([categoryListApi()]).then(res=>{
+            //获取分类数据
+            if(res[0].code === 1){
+              this.categoryList = res[0].data
+              if(Array.isArray(res[0].data) && res[0].data.length > 0){
+                this.categoryId = res[0].data[0].id
+                if(res[0].data[0].type === 1){
+                  this.getPetList()
+                }else{
+                  this.getBondpairData()
+                }
+              }
+            }else{
+              this.$notify({ type:'warning', message:res[0].msg});
             }
-          },
-          computed:{
-            goodsNum(){
-              let num = 0
-              this.cartData.forEach(item=>{
-                num += item.number 
+
+          })
+        },
+        //分类点击
+        categoryClick(index,id,type){
+          this.activeType = index
+          this.categoryId = id
+          if(type === 1){//宠物
+            this.getPetList()
+          }else{
+            this.getBondpairData()
+          }
+        },
+        //获取宠物数据
+        async getPetList(){
+          if(!this.categoryId){
+            return
+          }
+          const res = await petListApi({categoryId:this.categoryId,status:1})
+          if(res.code === 1){
+            let petList = res.data
+            const cartData  = this.cartData
+            if(petList.length > 0 && cartData.length > 0){
+              petList.forEach(pet=>{
+                cartData.forEach(cart=>{
+                  if(pet.id === cart.petId){
+                    pet.number = cart.number
+                  }
+                })
               })
-              if(num <99){
-                return num
-              }else{
-                return '99+'
-              }
-            },
-
-          },
-          created(){
-          },
-
-          mounted(){
-            this.initData()
-          },
-          methods:{
-            //初始化数据
-            initData(){
-              Promise.all([categoryListApi()]).then(res=>{
-                //获取分类数据
-                if(res[0].code === 1){
-                  this.categoryList = res[0].data
-                  if(Array.isArray(res[0].data) && res[0].data.length > 0){
-                    this.categoryId = res[0].data[0].id
-                    if(res[0].data[0].type === 1){
-                      this.getPetList()
-                    }else{
-                      this.getBondpairData()
+            }
+            this.petList = petList
+          }else{
+            this.$notify({ type:'warning', message:res.msg});
+          }
+        },
+        //获取宠物家族数据bondpairId
+        async getBondpairData(){
+          if(!this.categoryId){
+            return
+          }
+          const res = await bondpairListApi({categoryId:this.categoryId,status:1})
+          if(res.code === 1){
+              let petList = res.data
+              const cartData  = this.cartData
+              if(petList.length > 0 && cartData.length > 0){
+                petList.forEach(pet=>{
+                  cartData.forEach(cart=>{
+                    if(pet.id === cart.bondpairId){
+                      pet.number = cart.number
                     }
-                  }
-                }else{
-                  this.$notify({ type:'warning', message:res[0].msg});
-                }
-                //获取宠物数据
-                if(res[1].code === 1){
-                this.cartData = res[1].data
-                }else{
-                  this.$notify({ type:'warning', message:res[1].msg});
-                }
-              })
-            },
-            //分类点击
-            categoryClick(index,id,type){
-              this.activeType = index
-              this.categoryId = id
-              if(type === 1){//宠物
-                this.getPetList()
-              }else{
-                this.getBondpairData()
-              }
-            },
-            //获取宠物数据
-            async getPetList(){
-              if(!this.categoryId){
-                return
-              }
-              const res = await petListApi({categoryId:this.categoryId,status:1})
-              if(res.code === 1){
-                let petList = res.data
-                const cartData  = this.cartData
-                if(petList.length > 0 && cartData.length > 0){
-                  petList.forEach(pet=>{
-                    cartData.forEach(cart=>{
-                      if(pet.id === cart.petId){
-                        pet.number = cart.number
-                      }
-                    })
                   })
-                }
-                this.petList = petList
-              }else{
-                this.$notify({ type:'warning', message:res.msg});
-              }
-            },
-            //获取宠物家族数据bondpairId
-            async getBondpairData(){
-              if(!this.categoryId){
-                return
-              }
-              const res = await bondpairListApi({categoryId:this.categoryId,status:1})
-              if(res.code === 1){
-                  let petList = res.data
-                  const cartData  = this.cartData
-                  if(petList.length > 0 && cartData.length > 0){
-                    petList.forEach(pet=>{
-                      cartData.forEach(cart=>{
-                        if(pet.id === cart.bondpairId){
-                          pet.number = cart.number
-                        }
-                      })
-                    })
-                  }
-                  this.petList = petList
-              }else{
-                this.$notify({ type:'warning', message:res.msg});
-              }
-            },
-
-
-
-            //网络图片路径转换
-            imgPathConvert(path){
-              return imgPath(path)
-            },
-            //跳转到界面
-            toAddOrderPage(){
-              if(this.cartData.length > 0){
-                window.requestAnimationFrame(()=>{
-                  window.location.href ='/front/page/add-order.html'
                 })
               }
-            },
-            toUserPage(){
-              window.requestAnimationFrame(()=>{
-                window.location.href= '/front/page/user.html'
-              })
-            },
-            async petDetails(item){
-              //先清除对象数据，如果不行的话dialog使用v-if
-              this.detailsDialog.item = {}
-              this.setPairDialog.item = {}
-              if(Array.isArray(item.details)){
-                this.detailsDialog.item = item
-                this.detailsDialog.show = true
-              }else{
-                //显示宠物家族的数据
-                const res = await setPairPetDetailsApi(item.id)
-                if(res.code === 1){
-                  this.setPairDialog.item = {...item,list:res.data}
-                  this.setPairDialog.show = true
-                }else{
-                  this.$notify({ type:'warning', message:res.msg});
-                }
-              }
-
-            }
-
+              this.petList = petList
+          }else{
+            this.$notify({ type:'warning', message:res.msg});
           }
-      })
-  </script>
-  </html>
+        },
+
+
+
+        //网络图片路径转换
+        imgPathConvert(path){
+          return imgPath(path)
+        },
+        //跳转到界面
+        toAddOrderPage(){
+          if(this.cartData.length > 0){
+            window.requestAnimationFrame(()=>{
+              window.location.href ='/front/page/add-order.html'
+            })
+          }
+        },
+        toUserPage(){
+          window.requestAnimationFrame(()=>{
+            window.location.href= '/front/page/user.html'
+          })
+        },
+
+          async petDetails(item) {
+  console.log('petDetails called with:', item);
+  this.detailsDialog.item = {};
+  this.setPairDialog.item = {};
+
+  console.log('Item details:', item.details);
+
+  // 检查是否有 details 字段
+  if (Array.isArray(item.details)) {
+    console.log('Details found:', item.details);
+    this.detailsDialog.item = item;
+    this.detailsDialog.show = true;
+  } else {
+    console.log('Details not found or not an array, attempting to fetch pair details for ID:', item.id);
+    const res = await setPairPetDetailsApi(item.id);
+    console.log('Response from setPairPetDetailsApi:', res);
+
+    if (res.code === 1) {
+      console.log('Pair details fetched successfully:', res.data);
+      this.setPairDialog.item = { ...item, list: res.data };
+      this.setPairDialog.show = true;
+    } else {
+      console.warn('Failed to fetch pair details:', res.msg);
+      this.$notify({ type: 'warning', message: res.msg });
+    }
+  }
+}
+
+
+
+
+
+
+
+        }
+
+
+  })
+</script>
+</html>
