@@ -26,10 +26,21 @@ function bondpairListApi(data) {
 
 //获取宠物家族的全部宠物
 function setPairPetDetailsApi(id) {
+    // 调用 $axios 并返回 Promise
     return $axios({
-        'url': `/bondpair/pet/${id}`,
+        'url': `/bondpair/${id}`,
         'method': 'get',
     })
+    .then(response => {
+        console.log("Response data:", response.data);
+        petDetails.value = response.data; // 确认返回数据是否包含 image 属性
+        return response.data; // 返回数据供其他调用链使用
+    })
+    .catch(error => {
+        console.error("API Error:", error);
+        throw error; // 如果需要，抛出错误供调用者处理
+    });
 }
+
 
 

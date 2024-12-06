@@ -1,5 +1,7 @@
 package cocoa.service.impl;
 
+import cocoa.dto.PetDto;
+import cocoa.entity.PetDetail;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import java.util.List;
@@ -15,6 +17,7 @@ import cocoa.entity.BondpairPet;
 import cocoa.mapper.BondpairMapper;
 import cocoa.service.BondpairPetService;
 import cocoa.service.BondpairService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -27,14 +30,14 @@ public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> i
         // Save family basic info, update bondpair sheet, execute insert
         this.save(bondpairDto);
 
-        List<BondpairPet> bondpairPetes = bondpairDto.getBondpairPetes();
-        bondpairPetes.stream().map((item) ->{
+        List<BondpairPet> bondpairPets = bondpairDto.getBondpairPets();
+        bondpairPets.stream().map((item) ->{
             item.setBondpairId(bondpairDto.getId());
             return item;
         }).collect(Collectors.toList());
 
         // Save family and animal relation info, insert in bondpair-pet sheet
-        bondpairPetService.saveBatch(bondpairPetes);
+        bondpairPetService.saveBatch(bondpairPets);
     }
 
     /**
@@ -81,7 +84,7 @@ public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> i
             BeanUtils.copyProperties(bondpair,bondpairDto);
 
             List<BondpairPet> dishes = bondpairPetService.list(queryWrapper);
-            bondpairDto.setBondpairPetes(dishes);
+            bondpairDto.setBondpairPets(dishes);
 
             return bondpairDto;
         }

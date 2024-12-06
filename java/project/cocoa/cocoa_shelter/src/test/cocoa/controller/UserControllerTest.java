@@ -20,59 +20,80 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test class for {@link UserController}.
+ *
+ * <p>Tests the functionality of user-related endpoints such as sending
+ * verification codes and handling user login.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
-  @Mock
-  private UserService userService;
+    @Mock
+    private UserService userService;
 
-  @InjectMocks
-  private UserController userController;
+    @InjectMocks
+    private UserController userController;
 
-  private MockHttpSession session;
+    private MockHttpSession session;
 
 
-  @Autowired
-  private MockMvc mockMvc;
-  @BeforeEach
-  public void setup() {
-    MockitoAnnotations.openMocks(this);
-    session = new MockHttpSession();
-  }
+    @Autowired
+    private MockMvc mockMvc;
 
-  @Test
-  public void testSendMsgSuccess() {
-    User user = new User();
-    user.setPhone("1234567890");
+    /**
+     * Sets up the test environment before each test.
+     * Initializes Mockito annotations and creates a mock HTTP session.
+     */
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        session = new MockHttpSession();
+    }
 
-    R<String> result = userController.sendMsg(user, session);
-    Assertions.assertNotNull(result);
-    Assertions.assertEquals("Verification code sent successfully, valid for 5 minutes.", result.getData());
+    /**
+     * Tests the success scenario for sending a verification code.
+     */
+    @Test
+    public void testSendMsgSuccess() {
+        User user = new User();
+        user.setPhone("1234567890");
 
-  }
+        R<String> result = userController.sendMsg(user, session);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("Verification code sent successfully, valid for 5 minutes.", result.getData());
 
-  @Test
-  public void testLoginSuccess() {
-    // Setup mock data
-    String phone = "1234567890";
-    String code = "1234";
-    String sessionCode = "1234"; // The same code stored in session
-    User user = new User();
-    user.setPhone(phone);
-    user.setId(1L);
+    }
 
-    // Mocking UserService
-    when(userService.getOne(Mockito.any())).thenReturn(user);
+    /**
+     * Tests the success scenario for user login.
+     *
+     * <p>Simulates the user submitting a phone number and verification code
+     *
+     * <p>Mocking is used to simulate database interactions via {@link UserService}.
+     */
+    @Test
+    public void testLoginSuccess() {
+        // Setup mock data
+        String phone = "1234567890";
+        String code = "1234";
+        String sessionCode = "1234"; // The same code stored in session
+        User user = new User();
+        user.setPhone(phone);
+        user.setId(1L);
 
-    // Setup session with the code
-    session.setAttribute(phone, sessionCode);  // Storing code in session using phone as key
+        // Mocking UserService
+        when(userService.getOne(Mockito.any())).thenReturn(user);
 
-    // Call the login method
-    R<String> result = userController.login(Map.of("phone", phone, "code", code), session);
+        // Setup session with the code
+        session.setAttribute(phone, sessionCode);  // Storing code in session using phone as key
 
-    // Verify the result
-    assertEquals(1, result.getCode());  // Verifying status code
-    assertEquals(1L, session.getAttribute("user"));  // Verifying the user is set in session
-  }
+        // Call the login method
+        R<String> result = userController.login(Map.of("phone", phone, "code", code), session);
+
+        // Verify the result
+        assertEquals(1, result.getCode());  // Verifying status code
+        assertEquals(1L, session.getAttribute("user"));  // Verifying the user is set in session
+    }
 }
