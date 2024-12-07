@@ -158,4 +158,34 @@ public class BondpairController {
         BondpairDto bondpairDto= bondpairService.getBondpairData(id);
         return R.success(bondpairDto);
     }
+
+    /**
+     * Change bondpair status to adopted
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/0")
+    public R<String> changeToAdopted(Long ids){
+        Bondpair bondpair = bondpairService.getById(ids);
+        bondpair.setStatus(0);
+        LambdaQueryWrapper<Bondpair> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Bondpair::getId, ids);
+        bondpairService.update(bondpair, lambdaQueryWrapper);
+        return R.success("Updated");
+    }
+
+    /**
+     * Change bondpair status to not adopted
+     * @param ids
+     * @return
+     */
+    @PostMapping("/status/1")
+    public R<String> changeToNotAdopted(Long ids){
+        Bondpair bondpair= bondpairService.getById(ids);
+        bondpair.setStatus(1);
+        LambdaQueryWrapper<Bondpair> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Bondpair::getId, ids);
+        bondpairService.update(bondpair, lambdaQueryWrapper);
+        return R.success("Updated!");
+    }
 }

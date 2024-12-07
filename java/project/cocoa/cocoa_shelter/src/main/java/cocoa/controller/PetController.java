@@ -180,4 +180,34 @@ public class PetController {
         petService.removeById(ids);
         return R.success("Deleted a pet");
     }
+
+    /**
+     * Update pet status to adopted
+     * @param ids pet's id
+     * @return
+     */
+    @PostMapping("/status/0")
+    public R<String> updateToAdopted(Long ids){
+        Pet pet =petService.getById(ids);
+        pet.setStatus(0);
+        LambdaQueryWrapper<Pet> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Pet::getId, ids);
+        petService.update(pet, lambdaQueryWrapper);
+        return R.success("Updated!");
+    }
+//
+    /**
+     * Update pet status to up for adoption
+     * @param ids pet's id
+     * @return
+     */
+    @PostMapping("/status/1")
+    public R<String> updateToNotAdopted(Long ids){
+        Pet pet =petService.getById(ids);
+        pet.setStatus(1);
+        LambdaQueryWrapper<Pet> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Pet::getId, ids);
+        petService.update(pet, lambdaQueryWrapper);
+        return R.success("Updated");
+    }
 }

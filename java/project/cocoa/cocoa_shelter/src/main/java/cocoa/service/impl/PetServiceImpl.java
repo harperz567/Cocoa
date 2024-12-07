@@ -38,6 +38,9 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements PetSe
         List<PetDetail> details = petDto.getDetails();
         details = details.stream().map((item) ->{
             item.setPetId(petId);
+//            log.info(details);
+            System.out.println("----------item----------");
+            System.out.println(item);
             return item;
         }).collect(Collectors.toList());
 
