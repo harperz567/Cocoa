@@ -19,6 +19,12 @@ import cocoa.service.BondpairPetService;
 import cocoa.service.BondpairService;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service implementation for handling operations related to Bondpair entities.
+ * Extends ServiceImpl and implements BondpairService interface.
+ * Provides business logic for saving, deleting, and retrieving Bondpair information
+ * and related BondpairPet data.
+ */
 @Service
 @Slf4j
 public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> implements
@@ -26,6 +32,13 @@ public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> i
     @Autowired
     private BondpairPetService bondpairPetService;
 
+    /**
+     * Saves a Bondpair along with its associated BondpairPet records.
+     * The Bondpair is saved first, followed by the related BondpairPets,
+     * with the Bondpair ID being set for each BondpairPet.
+     *
+     * @param bondpairDto The BondpairDto object containing the Bondpair and BondpairPets data to be saved.
+     */
     public void saveWithPet(BondpairDto bondpairDto){
         // Save family basic info, update bondpair sheet, execute insert
         this.save(bondpairDto);
@@ -41,8 +54,12 @@ public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> i
     }
 
     /**
-     * Delete a family, and also animal relations data
-     * @param ids
+     * Removes a Bondpair and its related BondpairPet records.
+     * Before deletion, the adoption status of the Bondpair is checked to ensure it can be deleted.
+     * If the Bondpair is not adopted (status = 1), an exception is thrown.
+     *
+     * @param ids A list of Bondpair IDs to be deleted.
+     * @throws CustomException if the Bondpair is not adopted, preventing deletion.
      */
     public void removeWithPet(List<Long> ids){
         // SQL: Select count(*) from bondpair where id in (1, 2, 3) and status = 1
@@ -68,9 +85,10 @@ public class BondpairServiceImpl extends ServiceImpl<BondpairMapper, Bondpair> i
     }
 
     /**
-     * 获取宠物家族详细信息，填充到页面上
-     * @param id
-     * @return
+     * Retrieves detailed information for a specific Bondpair, including its associated BondpairPet records.
+     *
+     * @param id The ID of the Bondpair to retrieve.
+     * @return A BondpairDto containing the Bondpair data and its related BondpairPets, or null if not found.
      */
     @Override
     public BondpairDto getBondpairData(Long id) {

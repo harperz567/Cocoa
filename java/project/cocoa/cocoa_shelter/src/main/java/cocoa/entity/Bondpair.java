@@ -34,7 +34,7 @@ public class Bondpair implements Serializable {
     private Integer status;
 
 
-    // Delete this!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Represent the status
     private String code;
 
 
