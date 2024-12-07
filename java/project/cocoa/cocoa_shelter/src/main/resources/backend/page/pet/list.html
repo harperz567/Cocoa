@@ -29,9 +29,7 @@
           ></i>
         </el-input>
         <div class="tableLab">
-          <span class="span-btn delBut non" @click="deleteHandle('批量', null)">Delete Multiple</span>
-          <span class="span-btn blueBug non" @click="statusHandle('1')">Enable Multiple</span>
-          <span style="border:none;" class="span-btn delBut non" @click="statusHandle('0')">Disable Multiple</span>
+
           <el-button
             type="primary"
             @click="addPettype('add')"
@@ -98,22 +96,7 @@
             >
               Edit
             </el-button>
-            <el-button
-              type="text"
-              size="small"
-              class="blueBug"
-              @click="statusHandle(scope.row)"
-            >
-              {{ scope.row.status == '0' ? 'Order' : 'Up for adoption' }}
-            </el-button>
-            <el-button
-              type="text"
-              size="small"
-              class="delBut non"
-              @click="deleteHandle('Delete one', scope.row.id)"
-            >
-              Delete
-            </el-button>
+
           </template>
         </el-table-column>
       </el-table>

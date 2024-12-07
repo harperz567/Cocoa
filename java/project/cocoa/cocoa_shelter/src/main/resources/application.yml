@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-#    可以自定义应用的名称
+    #    可以自定义应用的名称
     name: cocoa
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -72,5 +72,3 @@ mybatis-plus:
 ##自定义的文件上传存储位置
 cocoa:
   path: /Users/harper/cs/java/
-
-
