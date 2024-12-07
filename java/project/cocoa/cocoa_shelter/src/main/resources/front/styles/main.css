@@ -38,9 +38,11 @@
   box-sizing: border-box;
   padding: 14rem 0 0 8rem;
 }
+
 #main .divTitle .divStatic {
   display: flex;
 }
+
 #main .divTitle .divStatic .logo {
   width: 39rem;
   height: 39rem;
@@ -87,7 +89,7 @@
   margin-right: 0;
 }
 
-#main .divTitle > .divDesc {
+#main .divTitle>.divDesc {
   opacity: 1;
   font-size: 12rem;
   font-family: PingFangSC, PingFangSC-Regular;
@@ -115,7 +117,7 @@
   height: calc(100% - 61rem);
   padding-bottom: 200rem;
   box-sizing: border-box;
-  width: 84rem;
+  width: 90rem;
   opacity: 1;
 }
 
@@ -147,7 +149,7 @@
   height: 100%;
 }
 
-#main .divBody .divMenu > div {
+#main .divBody .divMenu>div {
   margin-top: 61rem;
   overflow-y: auto;
   height: calc(100% - 61rem);
@@ -172,7 +174,7 @@
   border-radius: 5rem;
 }
 
-#main .divBody .divMenu .divItem > div {
+#main .divBody .divMenu .divItem>div {
   position: relative;
 }
 
@@ -590,13 +592,7 @@
   letter-spacing: 0rem;
 }
 
-#main
-  .setPairDetailsDialog
-  .divContainer
-  .item
-  .divSubTitle
-  .divPrice
-  span:first-child {
+#main .setPairDetailsDialog .divContainer .item .divSubTitle .divPrice span:first-child {
   font-size: 12rem;
 }
 
@@ -686,7 +682,7 @@
   height: 36rem;
 }
 
-#main .setPairDetailsDialog .divNum .right  {
+#main .setPairDetailsDialog .divNum .right {
   width: 100rem;
   height: 30rem;
   opacity: 1;
