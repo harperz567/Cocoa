@@ -1,6 +1,7 @@
 .dashboard-container {
   padding: 20px;
 }
+
 .dashboard-container .container {
   background: #fff;
   position: relative;
@@ -8,11 +9,13 @@
   padding: 30px 28px;
   border-radius: 4px;
 }
+
 .dashboard-container .container .tableBar {
   display: flex;
   margin-bottom: 20px;
   justify-content: space-between;
 }
+
 .dashboard-container .container .tableBox {
   width: 100%;
   border: solid 2px #f3f4f7;
@@ -54,9 +57,11 @@
   position: relative;
   overflow: hidden;
 }
+
 .addBrand-container .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+
 .addBrand-container .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -65,14 +70,17 @@
   line-height: 160px;
   text-align: center;
 }
+
 .addBrand-container .avatar {
   width: 160px;
   height: 160px;
   display: block;
 }
+
 .addBrand-container .el-form--inline .el-form-item__content {
   width: 293px;
 }
+
 .addBrand-container .el-input {
   width: 293px;
 }
@@ -80,6 +88,7 @@
 .addBrand-container {
   margin: 30px;
 }
+
 .addBrand-container .container {
   position: relative;
   z-index: 1;
@@ -88,6 +97,7 @@
   border-radius: 4px;
   min-height: 500px;
 }
+
 .addBrand-container .container .subBox {
   padding-top: 30px;
   text-align: center;
@@ -97,40 +107,47 @@
 .detailBox {
   width: 777px;
 }
+
 .detailBox .addBut {
-  background: #ffc200;
+  background: #e1e1e1;
   display: inline-block;
   padding: 0px 20px;
   border-radius: 3px;
   line-height: 40px;
   cursor: pointer;
   border-radius: 4px;
-  color: #333333;
+  color: #ef7999;
   font-weight: 500;
 }
+
 .detailBox .detail {
   border: solid 1px #dfe2e8;
   border-radius: 3px;
   padding: 15px;
   background: #fafafb;
 }
+
 .detailBox .detail .title {
   color: #606168;
 }
+
 .detailBox .detail .cont .items {
   display: flex;
   margin: 10px 0;
 }
+
 .detailBox .detail .cont .items .itTit {
   width: 150px;
   margin-right: 15px;
 }
+
 .detailBox .detail .cont .items .itTit input {
   width: 100%;
   line-height: 40px;
   border-radius: 3px;
   padding: 0 10px;
 }
+
 .detailBox .detail .cont .items .labItems {
   flex: 1;
   display: flex;
@@ -141,6 +158,7 @@
   background: #fff;
   padding: 0 5px;
 }
+
 .detailBox .detail .cont .items .labItems span {
   display: inline-block;
   color: #f19c59;
@@ -152,10 +170,12 @@
   border-radius: 3px;
   border: solid 1px #fae2cd;
 }
+
 .detailBox .detail .cont .items .labItems span i {
   cursor: pointer;
   font-style: normal;
 }
+
 .detailBox .detail .cont .items .labItems .inputBox {
   display: inline-block;
   width: 100%;
@@ -163,6 +183,7 @@
   line-height: 36px;
   overflow: hidden;
 }
+
 .detailBox .detail .cont .items .delDetail {
   display: inline-block;
   padding: 0 10px;
