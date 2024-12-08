@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cocoa?useSSL=false&serverTimezone=UTC
     username: root
-    password: yddbk123
+    password: 231224us
 
 #  shardingsphere:
 #    datasource:
