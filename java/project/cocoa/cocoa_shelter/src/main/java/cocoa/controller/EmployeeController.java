@@ -21,10 +21,12 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     /**
-     * The login method
-     * @param request
-     * @param employee
-     * @return
+     * Handles employee login requests.
+     *
+     * @param request the HTTP request object, used to manage session attributes
+     * @param employee the employee details from the request body (username and password)
+     * @return a response object containing the employee details if login is successful,
+     *         or an error message if login fails
      */
     @PostMapping("/login")
     public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee){
@@ -65,9 +67,10 @@ public class EmployeeController {
     }
 
     /**
-     * Employee log out method
-     * @param request
-     * @return
+     * Handles employee logout requests.
+     *
+     * @param request the HTTP request object, used to manage session attributes
+     * @return a response object confirming successful logout
      */
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request){
@@ -76,26 +79,26 @@ public class EmployeeController {
         return R.success("Logout successfully");
     }
 
-    /**
-     * Add new employee
-     * @param request
-     * @param employee
-     * @return
-     */
-    @PostMapping
-    public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
-        log.info("Added a new employee, info: {}", employee.toString());
-        // Starter password: 123456
-        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-
-        employeeService.save(employee);
-        if (employeeService.save(employee)) {
-            log.info("Employee added successfully");
-        } else {
-            log.error("Failed to add employee");
-        }
-
-        return R.success("Add a new employee");
-    }
+//    /**
+//     * Add new employee
+//     * @param request
+//     * @param employee
+//     * @return
+//     */
+//    @PostMapping
+//    public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
+//        log.info("Added a new employee, info: {}", employee.toString());
+//        // Starter password: 123456
+//        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+//
+//        employeeService.save(employee);
+//        if (employeeService.save(employee)) {
+//            log.info("Employee added successfully");
+//        } else {
+//            log.error("Failed to add employee");
+//        }
+//
+//        return R.success("Add a new employee");
+//    }
 
 }
