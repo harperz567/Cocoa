@@ -62,7 +62,9 @@ public class PetController {
      * @return
      */
     @GetMapping("/page")
-    public R<Page> page(int page, int pageSize, String name){
+    public R<Page> page(@RequestParam int page,
+        @RequestParam int pageSize,
+        @RequestParam(required = false) String name){
         // Set up a pagination builder object
         Page<Pet> pageInfo = new Page<>(page, pageSize);
         Page<PetDto> petDtoPage = new Page<>();

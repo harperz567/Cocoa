@@ -92,91 +92,91 @@
             />
           </el-form-item>
         </div>
-        <el-form-item label="Details: ">
-          <el-form-item>
-            <div class="detailBox">
-              <span
-                v-if="petDetails.length == 0"
-                class="addBut"
-                @click="addDetaile"
-              > + add details</span>
-              <div
-                v-if="petDetails.length != 0"
-                class="detail"
-              >
-                <div class="title">
-<!--                  <span>详情名（3个字内）</span><span>详情标签（输入标签回车添加）</span>-->
-                </div>
-                <div class="cont">
-                  <div
-                    v-for="(item, index) in petDetails"
-                    :key="index"
-                    class="items"
-                  >
-                    <div class="itTit">
-                      <!-- <SelectInput
-                        :pet-details-data="petDetailsData"
-                        :index="index"
-                        :value="item.name"
-                        @select="selectHandle"
-                      /> -->
-                      <div class="selectInput">
-                        <div>
-                           <el-input
-                              v-model="item.name"
-                              type="text"
-                              style="width: 100%"
-                              placeholder="Add details"
-                              @focus="selectDetail(true,index)"
-                              @blur="outSelect(false,index)"
-                              @input="inputHandle(index)"
-                            />
-                        </div>
-                        <div v-show="item.showOption" class="detailSelect">
-                          <span
-                            v-for="(it, ind) in petDetailsData"
-                            :key="ind"
-                            class="items"
-                            @click="checkOption(it,ind,index)"
-                          >{{ it.name }}</span>
-                          <span
-                            v-if="petDetailsData == []"
-                            class="none"
-                          >No data</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="labItems"
-                      style="display: flex"
-                    >
-                      <span
-                        v-for="(it, ind) in item.value"
-                        :key="ind"
-                      >{{ it }} <i @click="delDetailLabel(index, ind)">X</i></span>
-                      <div
-                        class="inputBox"
-                        :style="inputStyle"
-                        contenteditable="true"
-                        @focus="detailPosition(index)"
-                        @keydown.enter="(val)=>keyDownHandle(val,index)"
-                      ></div>
-                    </div>
-                    <span
-                      class="delDetail delBut non"
-                      @click="delDetail(index)"
-                    >Delete</span>
-                  </div>
-                </div>
-                <div
-                  class="addBut"
-                  @click="addDetaile"
-                >
-                  Add details
-                </div>
-              </div>
-            </div>
-          </el-form-item>
+<!--        <el-form-item label="Details: ">-->
+<!--          <el-form-item>-->
+<!--            <div class="detailBox">-->
+<!--              <span-->
+<!--                v-if="petDetails.length == 0"-->
+<!--                class="addBut"-->
+<!--                @click="addDetaile"-->
+<!--              > + add details</span>-->
+<!--              <div-->
+<!--                v-if="petDetails.length != 0"-->
+<!--                class="detail"-->
+<!--              >-->
+<!--                <div class="title">-->
+<!--&lt;!&ndash;                  <span>详情名（3个字内）</span><span>详情标签（输入标签回车添加）</span>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="cont">-->
+<!--                  <div-->
+<!--                    v-for="(item, index) in petDetails"-->
+<!--                    :key="index"-->
+<!--                    class="items"-->
+<!--                  >-->
+<!--                    <div class="itTit">-->
+<!--                      &lt;!&ndash; <SelectInput-->
+<!--                        :pet-details-data="petDetailsData"-->
+<!--                        :index="index"-->
+<!--                        :value="item.name"-->
+<!--                        @select="selectHandle"-->
+<!--                      /> &ndash;&gt;-->
+<!--                      <div class="selectInput">-->
+<!--                        <div>-->
+<!--                           <el-input-->
+<!--                              v-model="item.name"-->
+<!--                              type="text"-->
+<!--                              style="width: 100%"-->
+<!--                              placeholder="Add details"-->
+<!--                              @focus="selectDetail(true,index)"-->
+<!--                              @blur="outSelect(false,index)"-->
+<!--                              @input="inputHandle(index)"-->
+<!--                            />-->
+<!--                        </div>-->
+<!--                        <div v-show="item.showOption" class="detailSelect">-->
+<!--                          <span-->
+<!--                            v-for="(it, ind) in petDetailsData"-->
+<!--                            :key="ind"-->
+<!--                            class="items"-->
+<!--                            @click="checkOption(it,ind,index)"-->
+<!--                          >{{ it.name }}</span>-->
+<!--                          <span-->
+<!--                            v-if="petDetailsData == []"-->
+<!--                            class="none"-->
+<!--                          >No data</span>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div-->
+<!--                      class="labItems"-->
+<!--                      style="display: flex"-->
+<!--                    >-->
+<!--                      <span-->
+<!--                        v-for="(it, ind) in item.value"-->
+<!--                        :key="ind"-->
+<!--                      >{{ it }} <i @click="delDetailLabel(index, ind)">X</i></span>-->
+<!--                      <div-->
+<!--                        class="inputBox"-->
+<!--                        :style="inputStyle"-->
+<!--                        contenteditable="true"-->
+<!--                        @focus="detailPosition(index)"-->
+<!--                        @keydown.enter="(val)=>keyDownHandle(val,index)"-->
+<!--                      ></div>-->
+<!--                    </div>-->
+<!--                    <span-->
+<!--                      class="delDetail delBut non"-->
+<!--                      @click="delDetail(index)"-->
+<!--                    >Delete</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  class="addBut"-->
+<!--                  @click="addDetaile"-->
+<!--                >-->
+<!--                  Add details-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </el-form-item>-->
         </el-form-item>
         <div>
         </div>
@@ -323,7 +323,7 @@
         created() {
           this.getPetList()
           // details temp data
-          this.getDetailListHand()
+<!--          this.getDetailListHand()-->
           this.id = requestUrlParam('id')
           this.actionType = this.id ? 'edit' : 'add'
           if (this.id) {

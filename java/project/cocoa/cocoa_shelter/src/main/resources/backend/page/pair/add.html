@@ -51,14 +51,14 @@
       width: 777px;
     }
     .addPet .addBut {
-      background: #ffc200;
+      background: #ef7999;
       display: inline-block;
       padding: 0px 20px;
       border-radius: 3px;
       line-height: 40px;
       cursor: pointer;
       border-radius: 4px;
-      color: #333333;
+      color: #fff;
       font-weight: 500;
     }
     .addPet .content {
@@ -193,26 +193,27 @@
           <el-form-item>
             <div class="addPet">
               <span v-if="petTable.length == 0" class="addBut" @click="openAddPet"> + Add Details</span>
+<!--              <span v-if="petTable.length == 0" class="addBut" @click="openAddPet"> + Add Details</span>-->
               <div v-if="petTable.length != 0" class="content">
                 <div class="addBut" style="margin-bottom: 20px" @click="openAddPet">+ Add Details</div>
                 <div class="table">
                   <el-table :data="petTable" style="width: 100%">
-                    <el-table-column prop="name" label="Name" width="180" align="center"></el-table-column>
-                    <el-table-column prop="price" label="Fee" width="180">
+                    <el-table-column prop="name" label="Name" width="'33.33%'" align="center"></el-table-column>
+                    <el-table-column prop="price" label="Fee" width="'33.33%'" align="center">
                       <template slot-scope="scope"> {{ Number(scope.row.price) / 100 }} </template>
                     </el-table-column>
-                    <el-table-column prop="address" label="copies" align="center">
-                      <template slot-scope="scope">
-                        <el-input-number
-                            v-model="scope.row.copies"
-                            size="small"
-                            :min="1"
-                            :max="99"
-                            label="Descriptions"
-                        ></el-input-number>
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="address" label="Operation" width="180px;" align="center">
+<!--                    <el-table-column prop="address" label="copies" align="center">-->
+<!--                      <template slot-scope="scope">-->
+<!--                        <el-input-number-->
+<!--                            v-model="scope.row.copies"-->
+<!--                            size="small"-->
+<!--                            :min="1"-->
+<!--                            :max="99"-->
+<!--                            label="Descriptions"-->
+<!--                        ></el-input-number>-->
+<!--                      </template>-->
+<!--                    </el-table-column>-->
+                    <el-table-column prop="address" label="Operation" width="'33.33%'" align="center">
                       <template slot-scope="scope">
                         <el-button type="text" size="small" @click="delPetHandle(scope.$index)"> Delete </el-button>
                       </template>
