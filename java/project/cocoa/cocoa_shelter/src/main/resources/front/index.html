@@ -120,29 +120,25 @@
   >
     <div class="divContainer">
       <div class="title">{{setPairDialog.item.name}}</div>
-      <div class="item" v-for="(item,index) in setPairDialog.item.list" :key="index">
-        <el-image :src="imgPathConvert(item.image)">
+
+      <div class="item">
+        <el-image :src="imgPathConvert(setPairDialog.item.image)">
+          <h1>No img</h1>
           <div slot="error" class="image-slot">
-            <img src="./images/noImg.png"/>
+            <img src="./images/noImg.png" />
           </div>
         </el-image>
-        <div class="divSubTitle">{{item.name + '(' + item.copies + '份)' }}
-          <div class="divPrice">
-            <span>￥</span><span>{{item.price/100}}</span>
-          </div>
-        </div>
-        <div class="content">{{item.description}}</div>
+        <div class="content">{{ setPairDialog.item.description }}</div>
       </div>
+
+
+
     </div>
     <div class="divNum">
       <div class="left">
-        <span>￥</span><span>{{setPairDialog.item.price/100}}</span>
+        <span>$</span><span>{{setPairDialog.item.price/100}}</span>
       </div>
-      <div class="right">
 
-        <div class="divPetNum">{{setPairDialog.item.number}}</div>
-
-      </div>
     </div>
     <div class="detailsDialogClose" @click="setPairDialog.show = false">
       <img src="./images/close.png"/>
@@ -187,7 +183,7 @@
           },
           setPairDialog:{
             show:false,
-            item:{}
+            item:{image:''}
           },
         }
       },
@@ -310,32 +306,35 @@
         },
 
           async petDetails(item) {
-  console.log('petDetails called with:', item);
-  this.detailsDialog.item = {};
-  this.setPairDialog.item = {};
+            console.log('petDetails called with:', item);
+            this.detailsDialog.item = {};
+            this.setPairDialog.item = {};
 
-  console.log('Item details:', item.details);
+            console.log('Item details:', item.details);
 
-  // 检查是否有 details 字段
-  if (Array.isArray(item.details)) {
-    console.log('Details found:', item.details);
-    this.detailsDialog.item = item;
-    this.detailsDialog.show = true;
-  } else {
-    console.log('Details not found or not an array, attempting to fetch pair details for ID:', item.id);
-    const res = await setPairPetDetailsApi(item.id);
-    console.log('Response from setPairPetDetailsApi:', res);
+            // 检查是否有 details 字段
+            if (Array.isArray(item.details)) {
+              console.log(item)
+              console.log('Details found:', item.details);
+              this.detailsDialog.item = item;
+              this.detailsDialog.show = true;
+            } else {
+              console.log('Details not found or not an array, attempting to fetch pair details for ID:', item.id);
+              const res = await setPairPetDetailsApi(item.id);
+              console.log('Response from setPairPetDetailsApi:', res);
 
-    if (res.code === 1) {
-      console.log('Pair details fetched successfully:', res.data);
-      this.setPairDialog.item = { ...item, list: res.data };
-      this.setPairDialog.show = true;
-    } else {
-      console.warn('Failed to fetch pair details:', res.msg);
-      this.$notify({ type: 'warning', message: res.msg });
-    }
-  }
-}
+              if (res.code === 1) {
+                console.log('Pair details fetched successfully:', res.data);
+                console.log(item)
+                this.setPairDialog.item = item;
+
+                this.setPairDialog.show = true;
+              } else {
+                console.warn('Failed to fetch pair details:', res.msg);
+                this.$notify({ type: 'warning', message: res.msg });
+              }
+            }
+          }
 
 
 
