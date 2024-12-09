@@ -33,8 +33,8 @@ function setPairPetDetailsApi(id) {
     })
     .then(response => {
         console.log("Response data:", response.data);
-        petDetails.value = response.data; // 确认返回数据是否包含 image 属性
-        return response.data; // 返回数据供其他调用链使用
+        //petDetails.value = response.data; // 确认返回数据是否包含 image 属性
+        return response; // 返回数据供其他调用链使用
     })
     .catch(error => {
         console.error("API Error:", error);

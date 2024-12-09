@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   application:
@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cocoa?useSSL=false&serverTimezone=UTC
     username: root
-    password: 231224us
+    password: a11111
 
 #  shardingsphere:
 #    datasource:
@@ -71,4 +71,4 @@ mybatis-plus:
 
 ##自定义的文件上传存储位置
 cocoa:
-  path: /Users/harper/cs/java/
+  path: /Users/sijingzhang/Desktop/
