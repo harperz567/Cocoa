@@ -27,12 +27,14 @@ import cocoa.service.PetDetailService;
 import cocoa.service.PetService;
 
 /**
- * Pet management
+ * PetController is a REST controller for managing pet entities.
+ * It provides endpoints for creating, updating, deleting, and querying pet information.
  */
 @Slf4j
 @RestController
 @RequestMapping("/pet")
 public class PetController {
+
     @Autowired
     private PetService petService;
 
@@ -43,169 +45,144 @@ public class PetController {
     private CategoryService categoryService;
 
     /**
-     * Create new pet
-     * @param petDto
-     * @return
+     * Creates a new pet.
+     *
+     * @param petDto the data transfer object containing pet details
+     * @return a response indicating success or failure
      */
     @PostMapping
-    public R<String> save(@RequestBody PetDto petDto){
+    public R<String> save(@RequestBody PetDto petDto) {
         log.info(petDto.toString());
         petService.saveWithDetail(petDto);
         return R.success("Successfully added a pet!");
     }
 
     /**
-     * Pet info check by page
-     * @param page
-     * @param pageSize
-     * @param name
-     * @return
+     * Retrieves a paginated list of pets based on the given parameters.
+     *
+     * @param page     the page number
+     * @param pageSize the number of items per page
+     * @param name     an optional name to filter pets by
+     * @return a paginated list of pets wrapped in a response object
      */
     @GetMapping("/page")
     public R<Page> page(@RequestParam int page,
         @RequestParam int pageSize,
-        @RequestParam(required = false) String name){
-        // Set up a pagination builder object
+        @RequestParam(required = false) String name) {
         Page<Pet> pageInfo = new Page<>(page, pageSize);
         Page<PetDto> petDtoPage = new Page<>();
-        // Condition tool
         LambdaQueryWrapper<Pet> queryWrapper = new LambdaQueryWrapper<>();
-        // Add condition
         queryWrapper.like(name != null, Pet::getName, name);
-        // Add sorting
         queryWrapper.orderByDesc(Pet::getUpdateTime);
-
-        // Execute checking by page
         petService.page(pageInfo, queryWrapper);
-
-        // Copy object
         BeanUtils.copyProperties(pageInfo, petDtoPage, "records");
         List<Pet> records = pageInfo.getRecords();
-        List<PetDto> list = records.stream().map((item) ->{
+        List<PetDto> list = records.stream().map(item -> {
             PetDto petDto = new PetDto();
             BeanUtils.copyProperties(item, petDto);
-            Long categoryId = item.getCategoryId();
-            // Check category through id
-            Category category = categoryService.getById(categoryId);
-
-            if (category != null){
-                String categoryName = category.getName();
-                petDto.setCategoryName(categoryName);
+            Category category = categoryService.getById(item.getCategoryId());
+            if (category != null) {
+                petDto.setCategoryName(category.getName());
             }
             return petDto;
         }).collect(Collectors.toList());
-
         petDtoPage.setRecords(list);
         return R.success(petDtoPage);
     }
 
     /**
-     * Check pet details according to id
-     * @param id
-     * @return
+     * Retrieves detailed information of a pet by its ID.
+     *
+     * @param id the ID of the pet
+     * @return the detailed information of the pet wrapped in a response object
      */
-//    @GetMapping("/{id}")
-//    public R<PetDto> get(@PathVariable Long id){
-//        PetDto petDto = petService.getByIdWithDetail(id);
-//        return R.success(petDto);
-//    }
-
-
-
-    @CachePut(value = "userCache",key="#petDto.id")
+    @CachePut(value = "userCache", key = "#petDto.id")
     @GetMapping("/{id}")
-    public R<PetDto> get(@PathVariable Long id){
-        //因为是直接查Dto数据嘛，用现成的肯定不行了，在Service层自己写，这是个多表联查的过程
-        PetDto petDto=petService.getByIdWithDetail(id);
+    public R<PetDto> get(@PathVariable Long id) {
+        PetDto petDto = petService.getByIdWithDetail(id);
         return R.success(petDto);
     }
 
     /**
-     * Update a pet
-     * @param petDto
-     * @return
+     * Updates an existing pet.
+     *
+     * @param petDto the data transfer object containing updated pet details
+     * @return a response indicating success or failure
      */
     @PutMapping
-    public R<String> update(@RequestBody PetDto petDto){
+    public R<String> update(@RequestBody PetDto petDto) {
         log.info(petDto.toString());
         petService.updateWithDetail(petDto);
         return R.success("Successfully updated a pet!");
     }
 
     /**
-     * Get pet data through query condition
-     * @param pet
-     * @return
+     * Retrieves a list of pets matching the given query conditions.
+     *
+     * @param pet the query conditions
+     * @return a list of pets matching the conditions wrapped in a response object
      */
     @GetMapping("/list")
-    public R<List<PetDto>> list(Pet pet){
-        // Create query condition
+    public R<List<PetDto>> list(Pet pet) {
         LambdaQueryWrapper<Pet> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(pet.getCategoryId() != null, Pet::getCategoryId, pet.getCategoryId());
-
-        // Add condition(Not adopted, 1)
         queryWrapper.eq(Pet::getStatus, 1);
-
-        // Add sorting
         queryWrapper.orderByAsc(Pet::getSort).orderByDesc(Pet::getUpdateTime);
-
         List<Pet> list = petService.list(queryWrapper);
-
-        List<PetDto> petDtoList = list.stream().map((item) ->{
+        List<PetDto> petDtoList = list.stream().map(item -> {
             PetDto petDto = new PetDto();
             BeanUtils.copyProperties(item, petDto);
-            Long categoryId = item.getCategoryId();
-            // Check category through id
-            Category category = categoryService.getById(categoryId);
-
-            if (category != null){
-                String categoryName = category.getName();
-                petDto.setCategoryName(categoryName);
+            Category category = categoryService.getById(item.getCategoryId());
+            if (category != null) {
+                petDto.setCategoryName(category.getName());
             }
-            // Current pet family id
-            Long petId = item.getId();
             LambdaQueryWrapper<PetDetail> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper.eq(PetDetail::getPetId, petId);
-            // Select * from pet-details where id = ?
+            lambdaQueryWrapper.eq(PetDetail::getPetId, item.getId());
             List<PetDetail> petDetailList = petDetailService.list(lambdaQueryWrapper);
             petDto.setDetails(petDetailList);
-
             return petDto;
         }).collect(Collectors.toList());
-
         return R.success(petDtoList);
     }
 
+    /**
+     * Deletes a pet by its ID.
+     *
+     * @param ids the ID of the pet to delete
+     * @return a response indicating success or failure
+     */
     @DeleteMapping
-    public R<String> delete(@RequestParam Long ids){
+    public R<String> delete(@RequestParam Long ids) {
         log.info("Delete a pet, pet id: {}", ids);
         petService.removeById(ids);
         return R.success("Deleted a pet");
     }
 
     /**
-     * Update pet status to adopted
-     * @param ids pet's id
-     * @return
+     * Updates the status of a pet to adopted.
+     *
+     * @param ids the ID of the pet
+     * @return a response indicating success or failure
      */
     @PostMapping("/status/0")
-    public R<String> updateToAdopted(Long ids){
-        Pet pet =petService.getById(ids);
+    public R<String> updateToAdopted(Long ids) {
+        Pet pet = petService.getById(ids);
         pet.setStatus(0);
         LambdaQueryWrapper<Pet> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Pet::getId, ids);
         petService.update(pet, lambdaQueryWrapper);
         return R.success("Updated!");
     }
-//
+
     /**
-     * Update pet status to up for adoption
-     * @param ids pet's id
-     * @return
+     * Updates the status of a pet to up for adoption.
+     *
+     * @param ids the ID of the pet
+     * @return a response indicating success or failure
      */
     @PostMapping("/status/1")
-    public R<String> updateToNotAdopted(Long ids){
-        Pet pet =petService.getById(ids);
+    public R<String> updateToNotAdopted(Long ids) {
+        Pet pet = petService.getById(ids);
         pet.setStatus(1);
         LambdaQueryWrapper<Pet> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Pet::getId, ids);

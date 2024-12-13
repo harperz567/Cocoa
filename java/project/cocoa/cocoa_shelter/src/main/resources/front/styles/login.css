@@ -1,6 +1,6 @@
 #login .divHead {
   opacity: 1;
-  background: #333333;
+  background:#86c9dc;
   height: 88rem;
   width: 100%;
   font-size: 18rem;
@@ -15,7 +15,7 @@
   width: 356rem;
   height: 128rem;
   opacity: 1;
-  background: #ffffff;
+  background: #86c9dc;
   border-radius: 6rem;
   margin: 0 auto;
   margin-top: 10rem;
@@ -29,7 +29,7 @@
 
 #login .divContainer .divSplit {
   height: 1px;
-  background-color: #efefef;
+  background-color: #86c9dc;
   border: 0;
   margin-left: 10rem;
   margin-right: 10rem;
@@ -45,7 +45,7 @@
   font-family: PingFangSC, PingFangSC-Regular;
   font-weight: 400;
   text-align: left;
-  color: #ffc200;
+  color: #86c9dc;
   letter-spacing: 0px;
 }
 
@@ -93,4 +93,10 @@
 #login .btnPhone:active {
   background: rgba(255, 142, 0, 1);
   color: #333333;
+}
+
+.el-button {
+  background-color: #f2afc4 !important;
+  border-color: green !important;
+  color: white !important; /* 确保文本颜色与背景对比清晰 */
 }

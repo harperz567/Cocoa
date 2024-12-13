@@ -1,709 +1,298 @@
 /**
-首屏样式
-*/
+ * First screen styles
+ */
+
+html, body {
+  height: 100%;
+  overflow-y: auto; /* Allow vertical scrolling */
+  margin: 0;
+  padding: 0;
+}
+
 #main {
-  height: 100%;
+  height: auto; /* Set to auto to allow natural content extension */
+  min-height: 100%; /* Ensure at least full screen height */
+
 }
 
+/* divHead: Set as full-screen background */
 #main .divHead {
-  background: url(../images/bg_long.jpg);
-  /**
-
-  background-repeat: no-repeat;
-  */
-
-  height: 152rem;
-  background-size: contain;
-}
-
-#main .divHead img {
-  position: absolute;
-  left: 19rem;
-  top: 41rem;
-  width: 28rem;
-  height: 28rem;
-}
-
-#main .divTitle {
-  width: 345rem;
-  height: 118rem;
-  opacity: 1;
-  background: #ffffff;
-  border-radius: 6rem;
-  box-shadow: 0rem 2rem 5rem 0rem rgba(69, 69, 69, 0.1);
-  position: absolute;
-  left: 50%;
-  top: 77rem;
-  transform: translate(-50%, 0);
-  box-sizing: border-box;
-  padding: 14rem 0 0 8rem;
-}
-
-#main .divTitle .divStatic {
-  display: flex;
-}
-
-#main .divTitle .divStatic .logo {
-  width: 39rem;
-  height: 39rem;
-  opacity: 1;
-  background: #333333;
-  border-radius: 6rem;
-  margin-right: 10rem;
-}
-
-#main .divTitle .divStatic .divDesc .divName {
-  width: 90rem;
-  height: 25rem;
-  opacity: 1;
-  font-size: 18rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: left;
-  color: #20232a;
-  line-height: 25rem;
-}
-
-#main .divTitle .divStatic .divDesc .divSend {
-  opacity: 1;
-  font-size: 11rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: left;
-  color: #333333;
-  margin-bottom: 10rem;
-}
-
-#main .divTitle .divStatic .divDesc .divSend img {
-  width: 14rem;
-  height: 14rem;
-  opacity: 1;
-  vertical-align: sub;
-}
-
-#main .divTitle .divStatic .divDesc .divSend span {
-  margin-right: 12rem;
-}
-
-#main .divTitle .divStatic .divDesc .divSend span:last-child {
-  margin-right: 0;
-}
-
-#main .divTitle>.divDesc {
-  opacity: 1;
-  font-size: 12rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: left;
-  color: #9b9b9b;
-  line-height: 17rem;
-  margin-right: 18rem;
-  padding-top: 9rem;
-  border-top: 1rem dashed #ebebeb;
-}
-
-#main .divBody {
-  display: flex;
-  height: 100%;
-}
-
-#main .divBody .divType {
-  background: #f6f6f6;
-}
-
-#main .divBody .divType ul {
-  margin-top: 61rem;
-  overflow-y: auto;
-  height: calc(100% - 61rem);
-  padding-bottom: 200rem;
-  box-sizing: border-box;
-  width: 90rem;
-  opacity: 1;
-}
-
-#main .divBody .divType ul li {
-  padding: 16rem;
-  opacity: 1;
-  font-size: 13rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: left;
-  color: #666666;
-  line-height: 18rem;
-  letter-spacing: 0rem;
-  word-wrap: break-word;
-  word-break: normal;
-}
-
-#main .divBody .divType ul li.active {
-  color: #333333;
-  font-weight: 500;
-  background-color: #ffffff;
-  font-family: PingFangSC, PingFangSC-Regular;
-}
-
-#main .divBody .divMenu {
-  background-color: #ffffff;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-}
-
-#main .divBody .divMenu>div {
-  margin-top: 61rem;
-  overflow-y: auto;
-  height: calc(100% - 61rem);
-  padding-bottom: 200rem;
-  box-sizing: border-box;
-}
-
-#main .divBody .divMenu .divItem {
-  margin: 10rem 15rem 20rem 14rem;
-  display: flex;
-}
-
-#main .divBody .divMenu .divItem .el-image {
-  width: 86rem;
-  height: 86rem;
-  margin-right: 14rem;
-}
-
-#main .divBody .divMenu .divItem .el-image img {
-  width: 86rem;
-  height: 86rem;
-  border-radius: 5rem;
-}
-
-#main .divBody .divMenu .divItem>div {
-  position: relative;
-}
-
-#main .divBody .divMenu .divItem .divName {
-  height: 22rem;
-  opacity: 1;
-  font-size: 16rem;
-  font-family: PingFangSC, PingFangSC-Semibold;
-  font-weight: 600;
-  text-align: left;
-  color: #333333;
-  line-height: 22rem;
-  letter-spacing: 0;
-  margin-bottom: 5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 175rem;
-}
-
-#main .divBody .divMenu .divItem .divDesc {
-  height: 16rem;
-  opacity: 1;
-  font-size: 12rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: left;
-  color: #666666;
-  line-height: 16rem;
-  letter-spacing: 0rem;
-  margin-bottom: 4rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 144rem;
-}
-
-#main .divBody .divMenu .divItem .divBottom {
-  font-size: 15rem;
-  font-family: DIN, DIN-Medium;
-  font-weight: 500;
-  text-align: left;
-  color: #e94e3c;
-  line-height: 20rem;
-  letter-spacing: 0rem;
-}
-
-#main .divBody .divMenu .divItem .divBottom span:first-child {
-  font-size: 12rem;
-}
-
-#main .divBody .divMenu .divItem .divBottom span:last-child {
-  font-size: 15rem;
-}
-
-#main .divBody .divMenu .divItem .divNum {
-  display: flex;
-  position: absolute;
-  right: 12rem;
-  bottom: 0;
-}
-
-#main .divBody .divMenu .divItem .divNum .divPetNum {
-  font-size: 15rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 36rem;
-  letter-spacing: 0;
-  width: auto;
-}
-
-#main .divBody .divMenu .divItem .divNum .divTypes {
-  width: 64rem;
-  height: 24rem;
-  opacity: 1;
-  background: #ffc200;
-  border-radius: 12rem;
-  font-size: 12rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 24rem;
-  letter-spacing: 0;
-}
-
-#main .divBody .divMenu .divItem .divNum img {
-  width: 36rem;
-  height: 36rem;
-}
-
-
-
-
-
-
-
-
-
-
-#main .divLayer {
-  position: absolute;
-  height: 68rem;
-  width: 100%;
-  bottom: 0;
-  display: flex;
-}
-
-#main .divLayer .divLayerLeft {
-  background-color: #f6f6f6;
-  opacity: 0.5;
-  width: 84rem;
-  height: 100%;
-}
-
-#main .divLayer .divLayerRight {
-  background-color: white;
-  opacity: 0.5;
-  width: calc(100% - 84rem);
-  height: 100%;
-}
-
-#main .dialogDetail {
-  opacity: 1;
-  background: #ffffff;
-  border-radius: 10rem;
-}
-
-#main .dialogDetail .dialogTitle {
-  margin-top: 26rem;
-  margin-bottom: 14rem;
-  font-size: 18rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  color: #333333;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-#main .dialogDetail .divContent {
-  margin-left: 15rem;
-  margin-right: 15rem;
-}
-
-#main .dialogDetail .divContent .divDetailTitle {
-  height: 20rem;
-  opacity: 1;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: left;
-  color: #666666;
-  line-height: 20rem;
-  letter-spacing: 0;
-  margin-left: 5rem;
-  margin-bottom: 10rem;
-  margin-top: 10rem;
-}
-
-#main .dialogDetail .divContent span {
-  display: inline-block;
-  height: 30rem;
-  opacity: 1;
-  background: #ffffff;
-  border: 1rem solid #ffc200;
-  border-radius: 7rem;
-  line-height: 30rem;
-  padding-left: 13rem;
-  padding-right: 13rem;
-  margin: 0 5rem 10rem 5rem;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: center;
-  color: #333333;
-}
-
-#main .dialogDetail .divContent .spanActive {
-  background: #ffc200;
-  font-weight: 500;
-}
-
-#main .dialogDetail .divBottom {
-  margin-top: 20rem;
-  margin-bottom: 19rem;
-  margin-left: 20rem;
-  display: flex;
-  position: relative;
-}
-
-#main .dialogDetail .divBottom div:first-child {
-  height: 30rem;
-  opacity: 1;
-  font-size: 20rem;
-  font-family: DIN, DIN-Medium;
-  font-weight: 500;
-  text-align: left;
-  color: #e94e3c;
-  line-height: 30rem;
-  letter-spacing: 0;
-}
-
-#main .dialogDetail .divBottom div span {
-  font-size: 14rem;
-}
-
-#main .dialogDetail .divBottom div:last-child {
-  width: 100rem;
-  height: 30rem;
-  opacity: 1;
-  background: #ffc200;
-  border-radius: 15rem;
-  text-align: center;
-  line-height: 30rem;
-  position: absolute;
-  right: 20rem;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-}
-
-#main .dialogDetail .divDetailClose {
-  position: absolute;
-  bottom: -70rem;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-#main .dialogDetail .divDetailClose img {
-  width: 44rem;
-  height: 44rem;
-}
-
-
-
-
-#main .detailsDialog {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-#main .detailsDialog .divContainer {
-  padding: 20rem 20rem 0 20rem;
-  overflow: auto;
-  max-height: 50vh;
-  overflow-y: auto;
-}
-
-#main .detailsDialog .el-image {
-  width: 100%;
-  height: 100%;
-}
-
-#main .detailsDialog .el-image img {
-  width: 100%;
-  height: 100%;
-}
-
-#main .detailsDialog .title {
-  height: 28rem;
-  opacity: 1;
-  font-size: 20rem;
-  font-family: PingFangSC, PingFangSC-Semibold;
-  font-weight: 600;
-  color: #333333;
-  line-height: 28rem;
-  letter-spacing: 0;
-  margin-top: 18rem;
-  margin-bottom: 11rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-}
-
-#main .detailsDialog .content {
-  opacity: 1;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: justify;
-  color: #333333;
-  line-height: 24rem;
-}
-
-#main .detailsDialog .divNum {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 23rem;
-  margin-bottom: 20rem;
-  padding-left: 20rem;
-  padding-right: 20rem;
-}
-
-#main .detailsDialog .divNum .left {
-  font-size: 20rem;
-  font-family: DIN, DIN-Medium;
-  font-weight: 500;
-  text-align: left;
-  color: #e94e3c;
-  line-height: 36rem;
-  letter-spacing: 0rem;
-}
-
-#main .detailsDialog .divNum .left span:first-child {
-  font-size: 12rem;
-}
-
-#main .detailsDialog .divNum .right {
-  display: flex;
-}
-
-#main .detailsDialog .divNum .divPetNum {
-  font-size: 15rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 36rem;
-  letter-spacing: 0;
-  width: auto;
-}
-
-#main .detailsDialog .divNum .divTypes {
-  width: 64rem;
-  height: 24rem;
-  opacity: 1;
-  background: #ffc200;
-  border-radius: 12rem;
-  font-size: 12rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 24rem;
-  letter-spacing: 0;
-}
-
-#main .detailsDialog .divNum .divSubtract,
-.divAdd {
-  height: 36rem;
-}
-
-#main .detailsDialog .divNum img {
-  width: 36rem;
-  height: 36rem;
-}
-
-#main .detailsDialog .detailsDialogClose {
-  position: absolute;
-  bottom: -70rem;
-  left: 50%;
-  transform: translate(-50%, 0);
-}
-
-#main .detailsDialog .detailsDialogClose img {
-  width: 44rem;
-  height: 44rem;
-}
-
-#main .setPairDetailsDialog {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-#main .setPairDetailsDialog .divContainer {
-  padding: 20rem 20rem 0 20rem;
-  overflow: auto;
-  max-height: 50vh;
-  overflow-y: auto;
-}
-
-#main .setPairDetailsDialog .el-image {
-  width: 100%;
-  height: 100%;
-}
-
-#main .setPairDetailsDialog .el-image img {
-  width: 100%;
-  height: 100%;
-}
-
-#main .setPairDetailsDialog .divSubTitle {
-  text-align: left;
-  margin-top: 16rem;
-  margin-bottom: 6rem;
-  height: 25rem;
-  opacity: 1;
-  font-size: 18rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: left;
-  color: #333333;
-  line-height: 25rem;
-  letter-spacing: 0px;
-  position: relative;
-}
-
-#main .setPairDetailsDialog .divContainer .item .divSubTitle .divPrice {
-  position: absolute;
-  right: 0;
+  position: fixed; /* Ensure other content displays normally */
   top: 0;
-  font-size: 18rem;
-  font-family: DIN, DIN-Medium;
-  font-weight: 500;
-  text-align: left;
-  color: #e94e3c;
-  line-height: 25rem;
-  letter-spacing: 0rem;
+  width: 100vw; /* Full screen width */
+  height: 100vh; /* Full viewport height */
+  background-color: #86c9dc;
+  z-index: 0; /* Keep background layer at the lowest level */
 }
 
-#main .setPairDetailsDialog .divContainer .item .divSubTitle .divPrice span:first-child {
-  font-size: 12rem;
+.navbar{
+  z-index: 100;
 }
 
-#main .setPairDetailsDialog .title {
-  height: 28rem;
-  opacity: 1;
-  font-size: 20rem;
-  font-family: PingFangSC, PingFangSC-Semibold;
-  font-weight: 600;
-  color: #333333;
-  line-height: 28rem;
-  letter-spacing: 0;
-  margin-top: 18rem;
-  margin-bottom: 11rem;
+/* divTitle: Full screen width, flex layout for content */
+#main .divTitle {
+  position: relative;
+  display: flex; /* Use Flex layout */
+  flex-wrap: wrap; /* Wrap content when overflowing */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Full screen width */
+  padding: 20px 0 0 0; /* Top and bottom padding */
+  box-sizing: border-box; /* Include padding in dimensions */
+  background-color: #fff; /* Optional: background color */
+  position: relative; /* Ensure these parts display relative to normal flow */
+  z-index: 1; /* Set higher than divHead */
+  background-color: transparent;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
-#main .setPairDetailsDialog .content {
-  opacity: 1;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 400;
-  text-align: justify;
-  color: #333333;
-  line-height: 24rem;
+#main .divTitle img {
+  max-width: 100%; /* Ensure the image width doesn't exceed the container */
+  height: auto; /* Maintain image ratio */
+  flex: 1; /* Adjust width automatically */
+  background-color: transparent;
+}
+.main-logo {
+  width: 60vw; /* Width is 60% of the screen */
+  height: auto; /* Maintain ratio */
+  display: block; /* Prevent inline issues */
+  margin: 0 auto; /* Center horizontally */
+  margin-bottom: 20px;
 }
 
-#main .setPairDetailsDialog .divNum {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 23rem;
-  padding-bottom: 15rem;
-  padding-left: 20rem;
-  padding-right: 20rem;
-}
 
-#main .setPairDetailsDialog .divNum .left {
-  font-size: 20rem;
-  font-family: DIN, DIN-Medium;
-  font-weight: 500;
-  text-align: left;
-  color: #e94e3c;
-  line-height: 36rem;
-  letter-spacing: 0rem;
-}
-
-#main .setPairDetailsDialog .divNum .left span:first-child {
-  font-size: 12rem;
-}
-
-#main .setPairDetailsDialog .divNum .right {
-  display: flex;
-}
-
-#main .setPairDetailsDialog .divNum .divPetNum {
-  font-size: 15rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
+.image-container {
+  position: relative; /* For containing absolutely positioned text */
+  flex: 1; /* Adjust container width automatically */
   text-align: center;
-  color: #333333;
-  line-height: 36rem;
-  letter-spacing: 0;
-  width: auto;
 }
 
-#main .setPairDetailsDialog .divNum .divTypes {
-  width: 64rem;
-  height: 24rem;
-  opacity: 1;
-  background: #ffc200;
-  border-radius: 12rem;
-  font-size: 12rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 24rem;
-  letter-spacing: 0;
+.image-container img {
+  max-width: 100%; /* Maximum image width is container width */
+  height: auto; /* Maintain image ratio */
+  margin-top: 10px;
 }
 
-#main .setPairDetailsDialog .divNum .divSubtract,
-.divAdd {
-  height: 36rem;
-}
-
-#main .setPairDetailsDialog .divNum img {
-  width: 36rem;
-  height: 36rem;
-}
-
-#main .setPairDetailsDialog .divNum .right {
-  width: 100rem;
-  height: 30rem;
-  opacity: 1;
-  background: #ffc200;
-  border-radius: 15rem;
-  font-size: 14rem;
-  font-family: PingFangSC, PingFangSC-Regular;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
-  line-height: 30rem;
-}
-
-#main .setPairDetailsDialog .detailsDialogClose {
+.centered-text {
   position: absolute;
-  bottom: -70rem;
-  left: 50%;
-  transform: translate(-50%, 0);
+  top: 80%; /* Set text at 70% vertical height of container */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset by half its width and height for precise centering */
+  color: white;
+  font-size: 25rem; /* Adjust font size */
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Add shadow */
+  white-space: nowrap; /* Force no line breaks */
 }
 
-#main .setPairDetailsDialog .detailsDialogClose img {
-  width: 44rem;
-  height: 44rem;
+/* divBody: Below divTitle with some spacing */
+#main .divBody {
+  position: relative;
+  margin-top: 0px; /* Spacing from divTitle */
+  padding: 0 20px; /* Optional: padding */
+  position: relative; /* Ensure these parts display relative to normal flow */
+  z-index: 1; /* Set higher than divHead */
+  background: transparent; /* Set divBody background color */
+  padding-top: 30px;
+}
+
+/* Category section styles */
+.category-section {
+  margin-bottom: 30px; /* Spacing between category blocks */
+}
+
+/* Category title styles */
+.category-title {
+  font-size: 18rem; /* Title font size */
+  font-weight: bold;
+  margin-bottom: 15px; /* Spacing between title and list */
+  color: #333; /* Title color */
+  text-align: center;
+}
+
+/* Pet list container */
+.pets-list {
+  display: flex; /* Use Flex layout to arrange pets horizontally */
+  gap: 15px; /* Spacing between cards */
+  flex-wrap: wrap; /* Wrap content when overflowing */
+  justify-content: center; /* New: Center the entire list in the container */
+
+}
+
+/* Default styles for pet cards */
+.divItem {
+  width: calc(34% - 15px); /* Display 3 pets per row */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 8px; /* Card corners */
+  background-color: #fff; /* Background color */
+  text-align: center; /* Center content */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: transform 0.2s, box-shadow 0.2s; /* Hover effects */
+}
+
+.divItem:hover {
+  transform: translateY(-5px); /* Hover upward effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Hover shadow */
+}
+
+/* Pet image */
+.card-img-top {
+  width: 100%; /* Image width */
+  height: auto; /* Maintain ratio */
+  border-bottom: 1px solid #ddd; /* Border below image */
+  object-fit: cover; /* Ensure the image fills the container while maintaining aspect ratio */
+  border-top-left-radius: 8px; /* Match card corners */
+  border-top-right-radius: 8px;
+}
+
+/* Card inner information area */
+.card-body {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.card-body h5 {
+  font-size: 15rem; /* Pet name font size */
+  margin: 2px 0 1px;
+}
+
+.card-body p {
+  margin: 0;
+  font-size: 9rem; /* Description font size */
+  color: #666; /* Description font color */
+  padding-top: 3px;
+}
+
+.card-text.text-end {
+  font-weight: bold; /* Bold price font */
+  font-size: 9rem; /* Description font size */
+  color: #ff5722; /* Price color */
+  margin-top: 2px;
+}
+
+
+
+
+/* Add styles for Bootstrap Modal, compatible with original detailsDialog */
+.modal {
+    z-index: 50 !important;
+}
+
+
+.modal-dialog {
+    z-index: 60 !important;
+    max-width: 90%;
+    margin: auto; /* Center horizontally and vertically */
+    top: 50%; /* Set top distance */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Precise centering */
+    position: fixed; /* Fix position to avoid scroll issues */
+
+}
+
+.modal-content {
+    border-radius: 8px;
+    border: none;
+    background-color: white;
+    position: relative;
+    border: 5px solid #86c9dc; /* Blue-green border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.modal-body {
+    padding: 0;
+}
+
+/* Reuse styles from original detailsDialog */
+#main .modal .divContainer {
+    padding: 20rem 20rem 0 20rem;
+    overflow: auto;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+/* Image container styles */
+.image-container {
+  width: 100%; /* Container width fills parent element */
+  height: auto; /* Auto adjust height */
+  overflow: hidden; /* Hide overflow */
+  position: relative; /* Reserve for absolutely positioned content */
+}
+
+/* Image styles */
+.image-container img {
+  width: 100%; /* Image width fills container */
+  height: auto; /* Maintain ratio */
+  object-fit: cover; /* Crop image to fill container, can use contain to show full image */
+  display: block; /* Remove extra space below image */
+}
+
+/* Fallback image style on load failure */
+.image-container img[onerror] {
+  object-fit: contain; /* Ensure fallback image displays fully on load failure */
+}
+
+#main .modal .title {
+    height: 28rem;
+    opacity: 1;
+    font-size: 20rem;
+    font-family: PingFangSC, PingFangSC-Semibold;
+    font-weight: 600;
+    color: #333333;
+    line-height: 28rem;
+    letter-spacing: 0;
+    margin-top: 18rem;
+    margin-bottom: 11rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+#main .modal .content {
+    opacity: 1;
+    font-size: 14rem;
+    font-family: PingFangSC, PingFangSC-Regular;
+    font-weight: 400;
+    text-align: justify;
+    color: #333333;
+    line-height: 24rem;
+}
+
+#main .modal .divNum {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 23rem;
+    margin-bottom: 20rem;
+    padding-left: 20rem;
+    padding-right: 20rem;
+}
+
+#main .modal .divNum .left {
+    font-size: 20rem;
+    font-family: DIN, DIN-Medium;
+    font-weight: 500;
+    text-align: left;
+    color: #e94e3c;
+    line-height: 36rem;
+    letter-spacing: 0rem;
+}
+
+#main .modal .divNum .left span:first-child {
+    font-size: 12rem;
+}
+
+/* Bottom close button, reuse original detailsDialogClose styles */
+#main .modal .detailsDialogClose {
+    position: absolute;
+    bottom: -70rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#main .modal .detailsDialogClose img {
+    width: 44rem;
+    height: 44rem;
 }

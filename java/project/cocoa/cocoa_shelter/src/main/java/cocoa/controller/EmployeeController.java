@@ -79,26 +79,4 @@ public class EmployeeController {
         return R.success("Logout successfully");
     }
 
-//    /**
-//     * Add new employee
-//     * @param request
-//     * @param employee
-//     * @return
-//     */
-//    @PostMapping
-//    public R<String> save(HttpServletRequest request, @RequestBody Employee employee){
-//        log.info("Added a new employee, info: {}", employee.toString());
-//        // Starter password: 123456
-//        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-//
-//        employeeService.save(employee);
-//        if (employeeService.save(employee)) {
-//            log.info("Employee added successfully");
-//        } else {
-//            log.error("Failed to add employee");
-//        }
-//
-//        return R.success("Add a new employee");
-//    }
-
 }
