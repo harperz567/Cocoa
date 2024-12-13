@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- 引入样式 -->
+
   <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
   <link rel="stylesheet" href="../../styles/common.css" />
   <link rel="stylesheet" href="../../styles/page.css" />
@@ -92,91 +92,7 @@
             />
           </el-form-item>
         </div>
-<!--        <el-form-item label="Details: ">-->
-<!--          <el-form-item>-->
-<!--            <div class="detailBox">-->
-<!--              <span-->
-<!--                v-if="petDetails.length == 0"-->
-<!--                class="addBut"-->
-<!--                @click="addDetaile"-->
-<!--              > + add details</span>-->
-<!--              <div-->
-<!--                v-if="petDetails.length != 0"-->
-<!--                class="detail"-->
-<!--              >-->
-<!--                <div class="title">-->
-<!--&lt;!&ndash;                  <span>详情名（3个字内）</span><span>详情标签（输入标签回车添加）</span>&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="cont">-->
-<!--                  <div-->
-<!--                    v-for="(item, index) in petDetails"-->
-<!--                    :key="index"-->
-<!--                    class="items"-->
-<!--                  >-->
-<!--                    <div class="itTit">-->
-<!--                      &lt;!&ndash; <SelectInput-->
-<!--                        :pet-details-data="petDetailsData"-->
-<!--                        :index="index"-->
-<!--                        :value="item.name"-->
-<!--                        @select="selectHandle"-->
-<!--                      /> &ndash;&gt;-->
-<!--                      <div class="selectInput">-->
-<!--                        <div>-->
-<!--                           <el-input-->
-<!--                              v-model="item.name"-->
-<!--                              type="text"-->
-<!--                              style="width: 100%"-->
-<!--                              placeholder="Add details"-->
-<!--                              @focus="selectDetail(true,index)"-->
-<!--                              @blur="outSelect(false,index)"-->
-<!--                              @input="inputHandle(index)"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                        <div v-show="item.showOption" class="detailSelect">-->
-<!--                          <span-->
-<!--                            v-for="(it, ind) in petDetailsData"-->
-<!--                            :key="ind"-->
-<!--                            class="items"-->
-<!--                            @click="checkOption(it,ind,index)"-->
-<!--                          >{{ it.name }}</span>-->
-<!--                          <span-->
-<!--                            v-if="petDetailsData == []"-->
-<!--                            class="none"-->
-<!--                          >No data</span>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div-->
-<!--                      class="labItems"-->
-<!--                      style="display: flex"-->
-<!--                    >-->
-<!--                      <span-->
-<!--                        v-for="(it, ind) in item.value"-->
-<!--                        :key="ind"-->
-<!--                      >{{ it }} <i @click="delDetailLabel(index, ind)">X</i></span>-->
-<!--                      <div-->
-<!--                        class="inputBox"-->
-<!--                        :style="inputStyle"-->
-<!--                        contenteditable="true"-->
-<!--                        @focus="detailPosition(index)"-->
-<!--                        @keydown.enter="(val)=>keyDownHandle(val,index)"-->
-<!--                      ></div>-->
-<!--                    </div>-->
-<!--                    <span-->
-<!--                      class="delDetail delBut non"-->
-<!--                      @click="delDetail(index)"-->
-<!--                    >Delete</span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div-->
-<!--                  class="addBut"-->
-<!--                  @click="addDetaile"-->
-<!--                >-->
-<!--                  Add details-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </el-form-item>-->
+
         </el-form-item>
         <div>
         </div>
@@ -244,11 +160,11 @@
       </el-form>
     </div>
   </div>
-    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+
     <script src="../../plugins/vue/vue.js"></script>
-    <!-- 引入组件库 -->
+
     <script src="../../plugins/element-ui/index.js"></script>
-    <!-- 引入axios -->
+
     <script src="../../plugins/axios/axios.min.js"></script>
     <script src="../../js/request.js"></script>
     <script src="../../js/validate.js"></script>
@@ -350,27 +266,27 @@
               }
             })
           },
-          // 按钮 - 添加详情
+          //  button - add a detail
           addDetaile () {
             this.petDetails.push({'name': '', 'value': [], showOption: false}) // JSON.parse(JSON.stringify(this.petDetailsData))
           },
 
-          // 按钮 - 删除详情
+          //  button - delete a detail
           delDetail (ind) {
             this.petDetails.splice(ind, 1)
           },
 
-          // 按钮 - 删除详情标签
+          // button - delete a detail
           delDetailLabel (index, ind) {
             this.petDetails[index].value.splice(ind, 1)
           },
 
-          //详情位置记录
+          // ?
           detailPosition (index) {
             this.index = index
           },
 
-          // 添加详情标签
+          // Add details tag
           keyDownHandle (val,index) {
             console.log('keyDownHandle----val',val)
             console.log('keyDownHandle----index',index)
@@ -398,14 +314,14 @@
             })
           },
 
-          // 获取详情列表
+          // Get details
           getDetailListHand () {
             // detail detailData
             this.petDetailsData = [
-              {'name':'甜味','value':['无糖','少糖','半糖','多糖','全糖']},
-              {'name':'温度','value':['热饮','常温','去冰','少冰','多冰']},
-              {'name':'忌口','value':['不要葱','不要蒜','不要香菜','不要辣']},
-              {'name':'辣度','value':['不辣','微辣','中辣','重辣']}
+              {'name':'friendliness','value':['cat friendly','dog friendly','child friendly','not friendly']},
+              {'name':'hair length','value':['long','short','medium','no hair','loses a lot of hair']},
+              {'name':'eating habit','value':['picky','not picky','normal','lots of allergies']},
+              {'name':'neutering status','value':['neutered','not neutered']}
             ]
           },
 

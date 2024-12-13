@@ -1,4 +1,4 @@
-//package cocoa.controller;
+package cocoa.controller;
 
 import cocoa.common.R;
 import cocoa.controller.EmployeeController;
