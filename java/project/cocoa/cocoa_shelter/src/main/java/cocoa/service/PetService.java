@@ -11,11 +11,10 @@ import cocoa.entity.Pet;
  */
 public interface PetService extends IService<Pet> {
     /**
-     * Create new animal, and insert details, need to update two sheets (pet & pet-detail).
+     * Create new animal, and insert details, need to update two sheets (pet and pet-detail).
      *
      * @param petDto the data transfer object containing pet and detail information
      */
-    // Create new animal, and insert details, need to update two sheets(pet&pet-detail)
     public void saveWithDetail(PetDto petDto);
 
     /**
@@ -24,7 +23,6 @@ public interface PetService extends IService<Pet> {
      * @param id the ID of the pet to retrieve
      * @return a {@link PetDto} containing the pet and its details
      */
-    // Check pet details and detail
     public PetDto getByIdWithDetail(Long id);
 
     /**
@@ -32,6 +30,5 @@ public interface PetService extends IService<Pet> {
      *
      * @param petDto the data transfer object containing updated pet and detail information
      */
-    // Update pet info, and pet details
     public void updateWithDetail(PetDto petDto);
 }
