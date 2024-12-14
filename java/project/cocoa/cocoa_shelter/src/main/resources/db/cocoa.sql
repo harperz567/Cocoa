@@ -98,8 +98,8 @@ CREATE TABLE `category` (
   `name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT 'name',
   `sort` int NOT NULL DEFAULT '0' COMMENT 'sort',
   `create_time` datetime NOT NULL COMMENT 'create_time',
-  `update_time` datetime NOT NULL COMMENT '更新时间',
-  `create_user` bigint NOT NULL COMMENT 'update_time',
+  `update_time` datetime NOT NULL COMMENT 'update_time',
+  `create_user` bigint NOT NULL COMMENT 'create_user',
   `update_user` bigint NOT NULL COMMENT 'update_user',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `idx_category_name` (`name`)
