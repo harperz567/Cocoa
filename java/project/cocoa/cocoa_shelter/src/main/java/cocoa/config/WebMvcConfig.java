@@ -12,11 +12,19 @@ import cocoa.common.JacksonObjectMapper;
 @Slf4j
 @Configuration
 // We need this comment to indicate this is a config class
+/**
+ * WebMvcConfig is a custom configuration class that extends Spring's WebMvcConfigurationSupport.
+ * It allows customization of static resource mappings and message converters.
+ */
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     /**
-    * Set up static resource mapping
-    * @param registry
-    */
+     * Configures static resource mappings.
+     *
+     * This method maps specific URL paths to corresponding static resource directories,
+     * enabling the application to serve frontend assets correctly.
+     *
+     * @param registry The ResourceHandlerRegistry used to add resource handler mappings.
+     */
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("Start static resource mapping");
@@ -24,7 +32,14 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/front/**").addResourceLocations("classpath:/front/");
 
     }
-
+    /**
+     * Extends the list of HTTP message converters to customize JSON serialization and deserialization.
+     *
+     * This method adds a customized MappingJackson2HttpMessageConverter that uses a custom JacksonObjectMapper
+     * to control the format of JSON processing.
+     *
+     * @param converters A list of HttpMessageConverter objects to which the custom converter is added.
+     */
     @Override
     protected void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();

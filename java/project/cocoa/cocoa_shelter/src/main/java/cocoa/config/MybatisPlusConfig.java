@@ -9,13 +9,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * MybatisPlus分页插件配置类
+ * Configuration class for MyBatis Plus.
+ *
+ * This class sets up the necessary configurations for using MyBatis Plus,
+ * including enabling the pagination plugin for handling paginated database queries.
  */
 @Configuration
 @MapperScan("cocoa.mapper")
 public class MybatisPlusConfig {
-
-    //分页插件
+    /**
+     * Configures and registers the MyBatis Plus interceptor.
+     *
+     * The interceptor includes a pagination inner interceptor to handle
+     * pagination logic automatically during query execution.
+     *
+     * @return An instance of {@link MybatisPlusInterceptor} with the pagination interceptor added.
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor(){
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

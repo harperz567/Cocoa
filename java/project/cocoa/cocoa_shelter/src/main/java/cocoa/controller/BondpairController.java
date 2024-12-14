@@ -30,7 +30,15 @@ import cocoa.service.CategoryService;
 import cocoa.service.BondpairPetService;
 import cocoa.service.BondpairService;
 
-
+/**
+ * Controller for managing animal families (Bondpair) and their associated pets.
+ * Provides endpoints for adding, querying, updating, and deleting bondpairs,
+ * as well as changing the adoption status of a bondpair.
+ *
+ * <p>This controller interacts with the {@link BondpairService} to perform operations on
+ * bondpair entities and their related data. It also makes use of the {@link CategoryService}
+ * to retrieve the category information for bondpairs.</p>
+ */
 @RestController
 @RequestMapping("/bondpair")
 @Slf4j

@@ -12,7 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import cocoa.common.R;
 import cocoa.service.EmployeeService;
 import cocoa.entity.Employee;
-
+/**
+ * Controller for managing employee login and logout operations.
+ * This class handles employee authentication and session management.
+ *
+ * <p>It provides endpoints for logging in and logging out employees by verifying their credentials
+ * and storing the employee's ID in the session upon successful login.</p>
+ *
+ */
 @Slf4j
 @RestController
 @RequestMapping("/employee")

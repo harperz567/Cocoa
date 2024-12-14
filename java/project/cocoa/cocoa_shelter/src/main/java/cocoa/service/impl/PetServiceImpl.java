@@ -18,6 +18,14 @@ import java.util.List;
 
 @Service
 @Slf4j
+/**
+ * Implementation of the PetService interface for managing pet-related operations.
+ * This service includes functionality for saving, updating, and retrieving pets and their associated details.
+ * It leverages MyBatis-Plus for database operations and supports transactions for saving and updating pets with details.
+ *
+ * <p>The service uses the PetDto class to transfer data between the controller and the service layer, ensuring that
+ * both pet and its related details are handled together during save and update operations.</p>
+ */
 public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements PetService {
 
     @Autowired

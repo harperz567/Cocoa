@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
- * 全局异常处理
- * 基于代理实现，也就是通过AOP来对这些异常进行拦截
- * 如果抛异常了，就一起来这里进行处理
- * @ControllerAdvice(拦截哪些controller)
- * @ControllerAdvice(annotations = {RestController.class, Controller.class})加入了@RestController、@Controller的注解
- * @ResponseBody 返回Result对象时解析成json
+ * Global exception handler.
+ * Implements centralized exception handling for controllers using AOP.
+ * When an exception occurs in the application, it will be intercepted and handled here.
+ *
+ * Annotations:
+ * - @ControllerAdvice: Specifies the controllers to intercept.
+ * - @ControllerAdvice(annotations = {RestController.class, Controller.class}):
+ *   Targets controllers annotated with @RestController or @Controller.
+ * - @ResponseBody: Ensures the returned object is serialized into JSON for HTTP responses.
+ * - @Slf4j: Enables logging within the class.
  */
 @ControllerAdvice(annotations = {RestController.class, Controller.class})
 @ResponseBody
@@ -24,37 +28,36 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GloableExceptionHandler {
 
     /**
-     * @param exception 异常对象，后面Get信息要用
-     * @return 返回Result对象，既然都抓异常了，肯定就要Result.error("失败信息")
-     * @ExceptionHandler({异常类型.class,异常类型.class})
+     * Handles SQLIntegrityConstraintViolationException and NullPointerException.
+     *
+     * @param exception The exception object, used to retrieve details of the error.
+     * @return A custom error response encapsulated in the Result object.
+     *         If the error involves a duplicate entry, a specific message is returned.
+     *         Otherwise, a general "unknown error" message is returned.
      */
     @ExceptionHandler({SQLIntegrityConstraintViolationException.class, NullPointerException.class})
     public R<String> exceptionHandler(SQLIntegrityConstraintViolationException exception) {
         log.error(exception.getMessage());
-        //这里判断出来是添加员工时出现的异常
+
         if (exception.getMessage().contains("Duplicate entry")) {
-            //exception对象分割，同时存储
+
             String[] splitErrorMessage = exception.getMessage().split(" ");
-            /**
-             * splitErrorMessage数组内存的信息
-             * Duplicate entry '新增的账号' for key 'idx_username'
-             * 下标位2是新增账号，下标位5是关联的字段名
-             */
-            String errorMessage = "这个账号重复了" + splitErrorMessage[2];
+
+            String errorMessage = "This account already exists: " + splitErrorMessage[2];
             return R.error(errorMessage);
         }
         return R.error("unknown error");
     }
 
     /**
-     * Custom exception handler
-     * @param ex
-     * @return
+     * Handles CustomException.
+     *
+     * @param ex The custom exception object containing specific error information.
+     * @return A custom error response encapsulated in the Result object with the exception message.
      */
     @ExceptionHandler({CustomException.class})
     public R<String> exceptionHandlerCustomer(CustomException ex){
-        log.error(ex.getMessage());
-        //直接返回处理信息
+        log.error(ex.getMessage())
         return R.error(ex.getMessage());
     }
 }

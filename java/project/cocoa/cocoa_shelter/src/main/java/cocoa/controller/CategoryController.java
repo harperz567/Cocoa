@@ -21,8 +21,15 @@ import cocoa.common.R;
 import cocoa.entity.Category;
 import cocoa.service.CategoryService;
 
-
-@RestController
+/**
+ * Controller for managing categories within the application.
+ * Provides endpoints for adding, querying, updating, and deleting categories.
+ *
+ * <p>This controller interacts with the {@link CategoryService} to perform operations on
+ * category entities.</p>
+ *
+ */
+ @RestController
 @RequestMapping("category")
 @Slf4j
 public class CategoryController {
