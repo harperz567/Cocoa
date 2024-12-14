@@ -14,35 +14,58 @@ import java.time.LocalDateTime;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * The unique identifier for the category.
+     */
     private Long id;
 
-    // Animal/bonded pair. 1 indicates animal type, 2 indicates pair type.
+    /**
+     * The type of category. 1 indicates an animal, and 2 indicates a bonded pair.
+     */
     private Integer type;
 
-    // Name of the category
+    /**
+     * The name of the category.
+     */
     private String name;
 
-    // The order of the category
+    /**
+     * The order of the category in the list.
+     */
     private Integer sort;
 
-    // When this category was created
+    /**
+     * The date and time when this category was created.
+     * This field is automatically filled during insertion.
+     */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    // When this category was updated
+    /**
+     * The date and time when this category was last updated.
+     * This field is automatically filled during both insertions and updates.
+     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    // Who created this category
+    /**
+     * The ID of the user who created this category.
+     * This field is automatically filled during insertion.
+     */
     @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-    // Who updated this category
+    /**
+     * The ID of the user who last updated this category.
+     * This field is automatically filled during both insertions and updates.
+     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
-    // Whether this category is deleted
+    /**
+     * Indicates whether this category has been deleted.
+     * The field is excluded from selection queries.
+     */
     @TableField(select = false)
     private Integer isDeleted;
 }

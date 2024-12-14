@@ -14,29 +14,40 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-
-
+    /**
+     * The unique identifier for the user.
+     */
     private Long id;
 
-
+    /**
+     * The full name of the user.
+     */
     private String name;
 
-
-
+    /**
+     * The phone number of the user.
+     */
     private String phone;
 
-
-    //SEX 0 Female 1 male
+    /**
+     * The gender of the user.
+     * 0 represents Female and 1 represents Male.
+     */
     private String sex;
 
-
+    /**
+     * The identification number of the user.
+     */
     private String idNumber;
 
-
+    /**
+     * The avatar URL or image associated with the user.
+     */
     private String avatar;
 
-
-    //Status 0:banned，1:normal
+    /**
+     * The status of the user.
+     * 0 means banned and 1 means normal.
+     */
     private Integer status;
 }
