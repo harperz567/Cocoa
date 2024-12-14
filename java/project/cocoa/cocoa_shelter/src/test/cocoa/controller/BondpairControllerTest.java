@@ -121,7 +121,6 @@ class BondpairControllerTest {
     @Test
     void testListBondpair() throws Exception {
         List<Bondpair> bondpairs = new ArrayList<>();
-        // 明确指定泛型类型，避免方法重载冲突
         when(bondpairService.list(any(LambdaQueryWrapper.class))).thenReturn(bondpairs);
 
         mockMvc.perform(get("/bondpair/list"))
