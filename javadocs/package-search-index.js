@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cocoa"},{"l":"cocoa.common"},{"l":"cocoa.config"},{"l":"cocoa.controller"},{"l":"cocoa.dto"},{"l":"cocoa.entity"},{"l":"cocoa.filter"},{"l":"cocoa.mapper"},{"l":"cocoa.service"},{"l":"cocoa.service.impl"},{"l":"cocoa.utils"}];updateSearchResults();
