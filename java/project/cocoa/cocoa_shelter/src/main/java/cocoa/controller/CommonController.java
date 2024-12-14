@@ -65,7 +65,7 @@ public class CommonController {
 
         try {
             // Save the file to the target directory
-            file.transferTo(new File(basePath + "img/" +fileName));
+            file.transferTo(new File(basePath +fileName));
         } catch (IOException e) {
             log.error("Error occurred while saving the file", e);
         }
@@ -81,13 +81,12 @@ public class CommonController {
      *
      * @param httpServletResponse the HTTP response object used to send the file
      * @param name                the name of the file to be downloaded
-     * @throws IOException if an I/O error occurs during file reading or writing
      */
     @GetMapping("/download")
     public void fileDownload(HttpServletResponse httpServletResponse, String name) {
         try {
             // Read the file from the specified path
-            FileInputStream fileInputStream = new FileInputStream(new File(basePath + "img/" +name));
+            FileInputStream fileInputStream = new FileInputStream(new File(basePath +name));
 
             // Get the output stream from the HTTP response
             ServletOutputStream outputStream = httpServletResponse.getOutputStream();
