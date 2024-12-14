@@ -57,7 +57,7 @@ public class GloableExceptionHandler {
      */
     @ExceptionHandler({CustomException.class})
     public R<String> exceptionHandlerCustomer(CustomException ex){
-        log.error(ex.getMessage())
+        log.error(ex.getMessage());
         return R.error(ex.getMessage());
     }
 }
